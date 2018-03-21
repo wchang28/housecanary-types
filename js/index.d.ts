@@ -18,6 +18,9 @@ export declare namespace PropertyLevel {
     type FloodZoneCode = "A" | "A1" | "A10" | "A11" | "A12" | "A13" | "A14" | "A15" | "A16" | "A17" | "A18" | "A19" | "A2" | "A20" | "A21" | "A22" | "A23" | "A24" | "A25" | "A26" | "A27" | "A28" | "A29" | "A3" | "A30" | "A4" | "A5" | "A6" | "A7" | "A8" | "A9" | "A99" | "AE" | "AH" | "AO" | "AR" | "B" | "C" | "D" | "V" | "V1" | "V10" | "V11" | "V12" | "V13" | "V14" | "V15" | "V16" | "V17" | "V18" | "V19" | "V2" | "V20" | "V21" | "V22" | "V23" | "V24" | "V25" | "V26" | "V27" | "V28" | "V29" | "V3" | "V30" | "V4" | "V5" | "V6" | "V7" | "V8" | "V9" | "VE" | "X";
     type LTVOriginationSourceType = "deed" | "mls" | "avm_block" | "avm_blockgroup" | "avm_zip" | "avm_msa" | "avm_state";
     type ListingStatusType = "Coming Soon" | "Active" | "Closed" | "Sold" | "Pending" | "Contingent" | "Cancelled" | "Expired" | "Withdrawn" | "Deleted" | "Leased";
+    type LienType = "arm" | "commercial" | "construction" | "conventional" | "fannie_mae_freddie_mac" | "farmers_home_administration" | "fha" | "land_contract" | "open_end" | "revolving_credit_line" | "second_to_cover_down_payment" | "seller_take_back" | "stand_alone_first" | "stand_alone_refi" | "stand_alone_second" | "state_veterans" | "usda" | "va";
+    type LenderType = "bank" | "credit_union" | "finance_company" | "government" | "individual_private_party" | "insurance" | "internet" | "lending_institution" | "mortgage_company" | "other_company" | "reo_foreclosure_company" | "seller" | "subprime_lender";
+    type ARMIndex = "cd_6m" | "cofi" | "libor_1m" | "libor_1y" | "libor_2m" | "libor_3m" | "libor_6m" | "mta_12m" | "prime" | "tbill_10y" | "tbill_1y" | "tbill_3y" | "tbill_5y" | "tbill_6m";
     type PropertyType = "SFD" | "TH" | "CND" | "INC" | "MFH";
     type LeasePaymentFrequency = "Yearly" | "Semi-Annually" | "Monthly" | "Quarterly" | "Weekly" | "Daily";
     type EducationLevel = "elementary" | "middle" | "high";
@@ -84,7 +87,49 @@ export declare namespace PropertyLevel {
         listing_status?: string;
         listing_date?: string;
     }
+    interface Lien {
+        arm_change_date?: string;
+        arm_index?: ARMIndex;
+        due_date?: string;
+        grantee_1?: string;
+        grantee_1_forenames?: string;
+        grantee_2?: string;
+        grantee_2_forenames?: string;
+        grantor_1?: string;
+        grantor_2?: string;
+        heloc?: boolean;
+        interest_rate?: number;
+        is_arm?: boolean;
+        lender_type?: LenderType;
+        lien_amount?: number;
+        lien_length_months?: number;
+        lien_months_completed_as_of_date?: number;
+        lien_type?: LienType;
+        monthly_payment?: number;
+        notice_ids?: number[];
+        outstanding_principal?: number;
+        principal_paid_as_of_date?: number;
+        record_date?: string;
+        stand_alone_refi?: boolean;
+    }
     interface LTVDetails {
+        as_of_month?: string;
+        current_liens?: Lien[];
+        fsd?: number;
+        in_default?: boolean;
+        last_default_date?: string;
+        ltv_lwr?: number;
+        ltv_mean?: number;
+        ltv_upr?: number;
+        property_value_lwr?: number;
+        property_value_mean?: number;
+        property_value_upr?: number;
+        total_equity_lwr?: number;
+        total_equity_mean?: number;
+        total_equity_upr?: number;
+        total_lien?: number;
+        total_monthly_payments?: number;
+        total_notice_ids?: number[];
     }
     interface LTVOrigination {
         ltv?: number;
@@ -93,11 +138,34 @@ export declare namespace PropertyLevel {
         source?: LTVOriginationSourceType;
     }
     interface MortgageLienItem {
+        due_date?: string;
+        event_type?: string;
+        mortgage_years?: number;
+        grantee_1?: string;
+        grantee_1_forenames?: string;
+        grantee_2?: string;
+        grantee_2_forenames?: string;
+        grantor_2?: string;
+        record_page?: number;
+        fifteen_yr?: number;
+        amount?: number;
+        apn?: string;
+        record_date?: string;
+        thirty_yr?: number;
+        fips?: string;
+        record_doc?: string;
+        grantor_1?: string;
+        interest_rate?: number;
+        record_book?: number;
+        hc_interest_rate?: number;
+        arm_index?: ARMIndex;
+        heloc?: boolean;
+        lien_type?: LienType;
+        lender_type?: LenderType;
+        stand_alone_refi?: boolean;
     }
     type MortgageLien = MortgageLienItem[];
-    interface MortgageLienAllItem {
-    }
-    type MortgageLienAll = MortgageLienAllItem[];
+    type MortgageLienAll = MortgageLienItem[];
     interface NodItem {
     }
     type Nod = NodItem[];

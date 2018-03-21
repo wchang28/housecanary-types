@@ -151,6 +151,60 @@ export namespace PropertyLevel {
     | "Leased"
     ;
 
+    export type LienType
+    = "arm"
+    | "commercial"
+    | "construction"
+    | "conventional"
+    | "fannie_mae_freddie_mac"
+    | "farmers_home_administration"
+    | "fha"
+    | "land_contract"
+    | "open_end"
+    | "revolving_credit_line"
+    | "second_to_cover_down_payment"
+    | "seller_take_back"
+    | "stand_alone_first"
+    | "stand_alone_refi"
+    | "stand_alone_second"
+    | "state_veterans"
+    | "usda"
+    | "va"
+    ;
+
+    export type LenderType
+    = "bank"
+    | "credit_union"
+    | "finance_company"
+    | "government"
+    | "individual_private_party"
+    | "insurance"
+    | "internet"
+    | "lending_institution"
+    | "mortgage_company"
+    | "other_company"
+    | "reo_foreclosure_company"
+    | "seller"
+    | "subprime_lender"
+    ;
+
+    export type ARMIndex
+    = "cd_6m"
+    | "cofi"
+    | "libor_1m"
+    | "libor_1y"
+    | "libor_2m"
+    | "libor_3m"
+    | "libor_6m"
+    | "mta_12m"
+    | "prime"
+    | "tbill_10y"
+    | "tbill_1y"
+    | "tbill_3y"
+    | "tbill_5y"
+    | "tbill_6m"
+    ;
+
     export type PropertyType
     = "SFD" // single-family dwelling
     | "TH"  // townhome
@@ -248,8 +302,50 @@ export namespace PropertyLevel {
         listing_date?: string;
     }
 
+    export interface Lien {
+        arm_change_date?: string;
+        arm_index?: ARMIndex;
+        due_date?: string;
+        grantee_1?: string;
+        grantee_1_forenames?: string;
+        grantee_2?: string;
+        grantee_2_forenames?: string;
+        grantor_1?: string;
+        grantor_2?: string;
+        heloc?: boolean;
+        interest_rate?: number;
+        is_arm?: boolean;
+        lender_type?: LenderType;
+        lien_amount?: number;
+        lien_length_months?: number;
+        lien_months_completed_as_of_date?: number;
+        lien_type?: LienType,
+        monthly_payment?: number;
+        notice_ids?: number[];
+        outstanding_principal?: number;
+        principal_paid_as_of_date?: number;
+        record_date?: string;
+        stand_alone_refi?: boolean;
+    }
+
     export interface LTVDetails {
-        // TODO:
+        as_of_month?: string;
+        current_liens?: Lien[];
+        fsd?: number;
+        in_default?: boolean;
+        last_default_date?: string;
+        ltv_lwr?: number;
+        ltv_mean?: number;
+        ltv_upr?: number;
+        property_value_lwr?: number;
+        property_value_mean?: number;
+        property_value_upr?: number;
+        total_equity_lwr?: number;
+        total_equity_mean?: number;
+        total_equity_upr?: number;
+        total_lien?: number;
+        total_monthly_payments?: number;
+        total_notice_ids?: number[];
     }
 
     export interface LTVOrigination {
@@ -260,15 +356,35 @@ export namespace PropertyLevel {
     }
 
     export interface MortgageLienItem {
-        // TODO:
+        due_date?: string;
+        event_type?: string;
+        mortgage_years?: number;
+        grantee_1?: string;
+        grantee_1_forenames?: string;
+        grantee_2?: string;
+        grantee_2_forenames?: string;
+        grantor_2?: string;
+        record_page?: number;
+        fifteen_yr?: number;
+        amount?: number;
+        apn?: string;
+        record_date?: string;
+        thirty_yr?: number;
+        fips?: string;
+        record_doc?: string;
+        grantor_1?: string;
+        interest_rate?: number;
+        record_book?: number;
+        hc_interest_rate?: number;
+        arm_index?: ARMIndex;
+        heloc?: boolean;
+        lien_type?: LienType;
+        lender_type?: LenderType;
+        stand_alone_refi?: boolean;
     }
+
     export type MortgageLien = MortgageLienItem[];
-
-    export interface MortgageLienAllItem {
-        // TODO:
-    }
-
-    export type MortgageLienAll = MortgageLienAllItem[];
+    export type MortgageLienAll = MortgageLienItem[];
 
     export interface NodItem {
         // TODO:
