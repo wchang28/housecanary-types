@@ -1,0 +1,25 @@
+{
+  "name": "housecanary-types",
+  "version": "0.0.1",
+  "description": "Type Definition for HouseCanary API",
+  "typings": "./js/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [
+    "HouseCanary",
+    "API",
+    "Types"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wchang28/housecanary-types.git"
+  },
+  "author": {
+    "name": "Wen Chang"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^2.7.2"
+  }
+}
