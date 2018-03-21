@@ -155,6 +155,68 @@ export namespace PropertyLevel {
     | 5     // A grade
     ;
 
+    export type ConstructionType
+    = "Adobe"
+    | "Brick"
+    | "Concrete"
+    | "Concrete Block"
+    | "Dome"
+    | "Frame"
+    | "Heavy"
+    | "Light"
+    | "Log"
+    | "Manufactured"
+    | "Other"
+    | "Masonry"
+    | "Metal"
+    | "Steel"
+    | "Stone"
+    | "Tilt-up (pre-cast concrete)"
+    | "Wood"
+    | "Mixed"
+    ;
+
+    // TODO: check case sensitivity
+    export type PropertyStyle
+    = "Traditional"
+    | "A-Frame"
+    | "Bungalow"
+    | "Cape Cod"
+    | "Colonial"
+    | "English"
+    | "French Provincial"
+    | "Georgian"
+    | "High-rise"
+    | "Modern"
+    | "Ranch\\Rambler"
+    | "Spanish"
+    | "Tudor"
+    | "Mediterranean"
+    | "Conventional"
+    | "Other"
+    | "Prefab"
+    | "Modular"
+    | "Mansion"
+    | "Raised Ranch"
+    | "Dome"
+    | "Contemporary"
+    | "Unfinished\\Under Construction"
+    | "Victorian"
+    | "Cottage"
+    | "Custom"
+    | "Log Cabin/Rustic"
+    | "Historical"
+    ;
+
+    // TODO: check case sensitivity
+    export type WaterConnectionType
+    = "municipal"
+    | "cistern"
+    | "spring"
+    | "well"
+    | "none"
+    ;
+
     export type ListingStatusType
     = "Coming Soon"
     | "Active"
@@ -168,13 +230,6 @@ export namespace PropertyLevel {
     | "Deleted"
     | "Leased"
     ;
-
-    export type CountyRecorderRecordEventType
-    = "lien_concurrent_1"
-    | "lien_concurrent_2"
-    | "lien_stand_alone"
-    | "default_notice"
-    | "arms_length_sale"
 
     export type LienType
     = "arm"
@@ -228,6 +283,18 @@ export namespace PropertyLevel {
     | "tbill_3y"
     | "tbill_5y"
     | "tbill_6m"
+    ;
+
+    export type PropertyType
+    = "Single Family Residential"
+    | "Townhouse"
+    | "Condominium"
+    | "Manufactured/Mobile Home"
+    | "Multi-Family"
+    | "Land"
+    | "Timeshare"
+    | "Commercial"
+    | "Other"
     ;
 
     export type PropertyTypeCode
@@ -299,7 +366,7 @@ export namespace PropertyLevel {
         building_area_sq_ft?: number;
         building_condition_score?: BuildingConditionScore;
         building_quality_score?: BuildingQualityScore;
-        //"construction_type": "Wood";
+        construction_type?: ConstructionType;
         exterior_walls?: string;
         fireplace?: boolean;
         full_bath_count?: number;
@@ -311,18 +378,18 @@ export namespace PropertyLevel {
         no_of_stories?: number;
         number_of_bedrooms?: number;
         number_of_units?: number;
-        partial_bath_count?: number;
+        partial_bath_count?: number;    // can be float
         pool?: boolean;
-        //"property_type": "Single Family Residential";
+        property_type?: PropertyType;
         roof_cover?: string;
         roof_type?: string;
         sewer?: string;
         site_area_acres?: number;
-        //"style": "colonial";
+        style?: PropertyStyle;
         total_bath_count?: number;
-        total_number_of_rooms?: number;
+        total_number_of_rooms?: number; // can be float
         subdivision?: string;   // Subdivision as reported to the assessor
-        //"water": "municipal";
+        water?: WaterConnectionType;
         year_built?: number;
         zoning?: string;        // County-specific property zoning
     }
@@ -330,6 +397,7 @@ export namespace PropertyLevel {
     export interface DetailsAssessment {
         apn?: string;
         assessment_year?: number;
+        owner_name?: string;
         tax_year?: number;
         total_assessed_value?: number;
         tax_amount?: number;
@@ -340,8 +408,36 @@ export namespace PropertyLevel {
         assessment?: DetailsAssessment;
     }
 
+    export interface SalesInfo {
+        list_price?: number;
+        list_date?: string;
+        sale_date?: string;
+        sale_price?: number;
+        is_reo?: boolean;
+        is_distressed?: boolean;
+    }
+
+    export interface DetailsEnhancedRecord {
+        building_area_sq_ft?: number;
+        has_basement?: boolean;
+        has_pool?: boolean;
+        number_of_bathrooms?: number;   // can be float
+        number_of_bedrooms?: number;
+        parking_carport_count?: number;
+        parking_driveway_count?: number;
+        parking_garage_count?: number;
+        property_type?: PropertyType;
+        site_area_acres?: number;
+        stories_count?: number;
+        year_built?: number;
+
+        assessment?: DetailsAssessment;
+        sale?: SalesInfo;
+    }
+
     export interface DetailsEnhanced {
-        // TODO:
+        public_record?: DetailsEnhancedRecord;
+        listing_record?: DetailsEnhancedRecord;
     }
 
     export interface Flood {

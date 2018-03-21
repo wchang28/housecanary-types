@@ -20,11 +20,14 @@ export declare namespace PropertyLevel {
     type LTVOriginationSourceType = "deed" | "mls" | "avm_block" | "avm_blockgroup" | "avm_zip" | "avm_msa" | "avm_state";
     type BuildingConditionScore = 1 | 2 | 3 | 4 | 5;
     type BuildingQualityScore = 1 | 2 | 3 | 4 | 5;
+    type ConstructionType = "Adobe" | "Brick" | "Concrete" | "Concrete Block" | "Dome" | "Frame" | "Heavy" | "Light" | "Log" | "Manufactured" | "Other" | "Masonry" | "Metal" | "Steel" | "Stone" | "Tilt-up (pre-cast concrete)" | "Wood" | "Mixed";
+    type PropertyStyle = "Traditional" | "A-Frame" | "Bungalow" | "Cape Cod" | "Colonial" | "English" | "French Provincial" | "Georgian" | "High-rise" | "Modern" | "Ranch\\Rambler" | "Spanish" | "Tudor" | "Mediterranean" | "Conventional" | "Other" | "Prefab" | "Modular" | "Mansion" | "Raised Ranch" | "Dome" | "Contemporary" | "Unfinished\\Under Construction" | "Victorian" | "Cottage" | "Custom" | "Log Cabin/Rustic" | "Historical";
+    type WaterConnectionType = "municipal" | "cistern" | "spring" | "well" | "none";
     type ListingStatusType = "Coming Soon" | "Active" | "Closed" | "Sold" | "Pending" | "Contingent" | "Cancelled" | "Expired" | "Withdrawn" | "Deleted" | "Leased";
-    type CountyRecorderRecordEventType = "lien_concurrent_1" | "lien_concurrent_2" | "lien_stand_alone" | "default_notice" | "arms_length_sale";
     type LienType = "arm" | "commercial" | "construction" | "conventional" | "fannie_mae_freddie_mac" | "farmers_home_administration" | "fha" | "land_contract" | "open_end" | "revolving_credit_line" | "second_to_cover_down_payment" | "seller_take_back" | "stand_alone_first" | "stand_alone_refi" | "stand_alone_second" | "state_veterans" | "usda" | "va";
     type LenderType = "bank" | "credit_union" | "finance_company" | "government" | "individual_private_party" | "insurance" | "internet" | "lending_institution" | "mortgage_company" | "other_company" | "reo_foreclosure_company" | "seller" | "subprime_lender";
     type ARMIndex = "cd_6m" | "cofi" | "libor_1m" | "libor_1y" | "libor_2m" | "libor_3m" | "libor_6m" | "mta_12m" | "prime" | "tbill_10y" | "tbill_1y" | "tbill_3y" | "tbill_5y" | "tbill_6m";
+    type PropertyType = "Single Family Residential" | "Townhouse" | "Condominium" | "Manufactured/Mobile Home" | "Multi-Family" | "Land" | "Timeshare" | "Commercial" | "Other";
     type PropertyTypeCode = "SFD" | "TH" | "CND" | "INC" | "MFH";
     type LeasePaymentFrequency = "Yearly" | "Semi-Annually" | "Monthly" | "Quarterly" | "Weekly" | "Daily";
     type EducationLevel = "elementary" | "middle" | "high";
@@ -71,6 +74,7 @@ export declare namespace PropertyLevel {
         building_area_sq_ft?: number;
         building_condition_score?: BuildingConditionScore;
         building_quality_score?: BuildingQualityScore;
+        construction_type?: ConstructionType;
         exterior_walls?: string;
         fireplace?: boolean;
         full_bath_count?: number;
@@ -84,19 +88,23 @@ export declare namespace PropertyLevel {
         number_of_units?: number;
         partial_bath_count?: number;
         pool?: boolean;
+        property_type?: PropertyType;
         roof_cover?: string;
         roof_type?: string;
         sewer?: string;
         site_area_acres?: number;
+        style?: PropertyStyle;
         total_bath_count?: number;
         total_number_of_rooms?: number;
         subdivision?: string;
+        water?: WaterConnectionType;
         year_built?: number;
         zoning?: string;
     }
     interface DetailsAssessment {
         apn?: string;
         assessment_year?: number;
+        owner_name?: string;
         tax_year?: number;
         total_assessed_value?: number;
         tax_amount?: number;
@@ -105,7 +113,33 @@ export declare namespace PropertyLevel {
         property?: DetailsProperty;
         assessment?: DetailsAssessment;
     }
+    interface SalesInfo {
+        list_price?: number;
+        list_date?: string;
+        sale_date?: string;
+        sale_price?: number;
+        is_reo?: boolean;
+        is_distressed?: boolean;
+    }
+    interface DetailsEnhancedRecord {
+        building_area_sq_ft?: number;
+        has_basement?: boolean;
+        has_pool?: boolean;
+        number_of_bathrooms?: number;
+        number_of_bedrooms?: number;
+        parking_carport_count?: number;
+        parking_driveway_count?: number;
+        parking_garage_count?: number;
+        property_type?: PropertyType;
+        site_area_acres?: number;
+        stories_count?: number;
+        year_built?: number;
+        assessment?: DetailsAssessment;
+        sale?: SalesInfo;
+    }
     interface DetailsEnhanced {
+        public_record?: DetailsEnhancedRecord;
+        listing_record?: DetailsEnhancedRecord;
     }
     interface Flood {
         effective_date?: string;
