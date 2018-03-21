@@ -298,11 +298,11 @@ export namespace PropertyLevel {
     ;
 
     export type PropertyTypeCode
-    = "SFD" // single-family dwelling
-    | "TH"  // townhome
-    | "CND" // condo
-    | "INC"
-    | "MFH" // multi-family home
+    = "SFD" // Single Family Dwelling
+    | "TH"  // Townhouse
+    | "CND" // Condominium
+    | "INC" // Multi-Family Building
+    | "MFH" // Manufactured/Mobile Home
     ;
 
     export type LeasePaymentFrequency
