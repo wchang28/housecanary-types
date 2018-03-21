@@ -1,10 +1,11 @@
+export declare type StateCode = ('AK' | 'AL' | 'AR' | 'AZ' | 'CA' | 'CO' | 'CT' | 'DC' | 'DE' | 'FL' | 'GA' | 'GU' | 'HI' | 'IA' | 'ID' | 'IL' | 'IN' | 'KS' | 'KY' | 'LA' | 'MA' | 'MD' | 'ME' | 'MI' | 'MN' | 'MO' | 'MS' | 'MT' | 'NC' | 'ND' | 'NE' | 'NH' | 'NJ' | 'NM' | 'NV' | 'NY' | 'OH' | 'OK' | 'OR' | 'PA' | 'PR' | 'RI' | 'SC' | 'SD' | 'TN' | 'TX' | 'UT' | 'VA' | 'VT' | 'WA' | 'WI' | 'WV' | 'WY');
+export declare type YesOrNo = ("yes" | "no");
+export declare type PropertyTypeCode = "SFD" | "TH" | "CND" | "INC" | "MFH";
 export interface ComponentData<COMP> {
     api_code_description: string;
     api_code: number;
     result: COMP;
 }
-export declare type StateCode = ('AK' | 'AL' | 'AR' | 'AZ' | 'CA' | 'CO' | 'CT' | 'DC' | 'DE' | 'FL' | 'GA' | 'GU' | 'HI' | 'IA' | 'ID' | 'IL' | 'IN' | 'KS' | 'KY' | 'LA' | 'MA' | 'MD' | 'ME' | 'MI' | 'MN' | 'MO' | 'MS' | 'MT' | 'NC' | 'ND' | 'NE' | 'NH' | 'NJ' | 'NM' | 'NV' | 'NY' | 'OH' | 'OK' | 'OR' | 'PA' | 'PR' | 'RI' | 'SC' | 'SD' | 'TN' | 'TX' | 'UT' | 'VA' | 'VT' | 'WA' | 'WI' | 'WV' | 'WY');
-export declare type YesOrNo = ("yes" | "no");
 export declare namespace PropertyLevel {
     type Component = "property/census" | "property/details" | "property/details_enhanced" | "property/flood" | "property/listing_status" | "property/ltv_details" | "property/ltv_origination" | "property/mortgage_lien" | "property/mortgage_lien_all" | "property/nod" | "property/on_market" | "property/owner_occupied" | "property/rental_listing_status" | "property/rental_on_market" | "property/rental_value" | "property/rental_value_within_block" | "property/rental_yield" | "property/sales_history" | "property/school" | "property/value" | "property/value_by_quality" | "property/value_details_adjusted" | "property/value_forecast" | "property/value_hpi_adjusted" | "property/value_within_block";
     interface RequestItem {
@@ -28,7 +29,6 @@ export declare namespace PropertyLevel {
     type LenderType = "bank" | "credit_union" | "finance_company" | "government" | "individual_private_party" | "insurance" | "internet" | "lending_institution" | "mortgage_company" | "other_company" | "reo_foreclosure_company" | "seller" | "subprime_lender";
     type ARMIndex = "cd_6m" | "cofi" | "libor_1m" | "libor_1y" | "libor_2m" | "libor_3m" | "libor_6m" | "mta_12m" | "prime" | "tbill_10y" | "tbill_1y" | "tbill_3y" | "tbill_5y" | "tbill_6m";
     type PropertyType = "Single Family Residential" | "Townhouse" | "Condominium" | "Manufactured/Mobile Home" | "Multi-Family" | "Land" | "Timeshare" | "Commercial" | "Other";
-    type PropertyTypeCode = "SFD" | "TH" | "CND" | "INC" | "MFH";
     type LeasePaymentFrequency = "Yearly" | "Semi-Annually" | "Monthly" | "Quarterly" | "Weekly" | "Daily";
     type EducationLevel = "elementary" | "middle" | "high";
     interface AddressInfoStatus {

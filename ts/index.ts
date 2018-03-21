@@ -1,12 +1,20 @@
+export type StateCode = ('AK' | 'AL' | 'AR' | 'AZ' | 'CA' | 'CO' | 'CT' | 'DC' | 'DE' | 'FL' | 'GA' | 'GU' | 'HI' | 'IA' | 'ID' | 'IL' | 'IN' | 'KS' | 'KY' | 'LA' | 'MA' | 'MD' | 'ME' | 'MI' | 'MN' | 'MO' | 'MS' | 'MT' | 'NC' | 'ND' | 'NE' | 'NH' | 'NJ' | 'NM' | 'NV' | 'NY' | 'OH' | 'OK' | 'OR' | 'PA' | 'PR' | 'RI' | 'SC' | 'SD' | 'TN' | 'TX' | 'UT' | 'VA' | 'VT' | 'WA' | 'WI' | 'WV' | 'WY');
+
+export type YesOrNo = ("yes" | "no");
+
+export type PropertyTypeCode
+= "SFD" // Single Family Dwelling
+| "TH"  // Townhouse
+| "CND" // Condominium
+| "INC" // Multi-Family Building
+| "MFH" // Manufactured/Mobile Home
+;
+
 export interface ComponentData<COMP> {
     api_code_description: string;
     api_code: number;  
     result: COMP;
 }
-
-export type StateCode = ('AK' | 'AL' | 'AR' | 'AZ' | 'CA' | 'CO' | 'CT' | 'DC' | 'DE' | 'FL' | 'GA' | 'GU' | 'HI' | 'IA' | 'ID' | 'IL' | 'IN' | 'KS' | 'KY' | 'LA' | 'MA' | 'MD' | 'ME' | 'MI' | 'MN' | 'MO' | 'MS' | 'MT' | 'NC' | 'ND' | 'NE' | 'NH' | 'NJ' | 'NM' | 'NV' | 'NY' | 'OH' | 'OK' | 'OR' | 'PA' | 'PR' | 'RI' | 'SC' | 'SD' | 'TN' | 'TX' | 'UT' | 'VA' | 'VT' | 'WA' | 'WI' | 'WV' | 'WY');
-
-export type YesOrNo = ("yes" | "no");
 
 // property level
 export namespace PropertyLevel {
@@ -295,14 +303,6 @@ export namespace PropertyLevel {
     | "Timeshare"
     | "Commercial"
     | "Other"
-    ;
-
-    export type PropertyTypeCode
-    = "SFD" // Single Family Dwelling
-    | "TH"  // Townhouse
-    | "CND" // Condominium
-    | "INC" // Multi-Family Building
-    | "MFH" // Manufactured/Mobile Home
     ;
 
     export type LeasePaymentFrequency
