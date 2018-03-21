@@ -18,6 +18,7 @@ export declare namespace PropertyLevel {
     type FloodZoneCode = "A" | "A1" | "A10" | "A11" | "A12" | "A13" | "A14" | "A15" | "A16" | "A17" | "A18" | "A19" | "A2" | "A20" | "A21" | "A22" | "A23" | "A24" | "A25" | "A26" | "A27" | "A28" | "A29" | "A3" | "A30" | "A4" | "A5" | "A6" | "A7" | "A8" | "A9" | "A99" | "AE" | "AH" | "AO" | "AR" | "B" | "C" | "D" | "V" | "V1" | "V10" | "V11" | "V12" | "V13" | "V14" | "V15" | "V16" | "V17" | "V18" | "V19" | "V2" | "V20" | "V21" | "V22" | "V23" | "V24" | "V25" | "V26" | "V27" | "V28" | "V29" | "V3" | "V30" | "V4" | "V5" | "V6" | "V7" | "V8" | "V9" | "VE" | "X";
     type LTVOriginationSourceType = "deed" | "mls" | "avm_block" | "avm_blockgroup" | "avm_zip" | "avm_msa" | "avm_state";
     type ListingStatusType = "Coming Soon" | "Active" | "Closed" | "Sold" | "Pending" | "Contingent" | "Cancelled" | "Expired" | "Withdrawn" | "Deleted" | "Leased";
+    type CountyRecorderRecordEventType = "lien_concurrent_1" | "lien_concurrent_2" | "lien_stand_alone" | "default_notice" | "arms_length_sale";
     type LienType = "arm" | "commercial" | "construction" | "conventional" | "fannie_mae_freddie_mac" | "farmers_home_administration" | "fha" | "land_contract" | "open_end" | "revolving_credit_line" | "second_to_cover_down_payment" | "seller_take_back" | "stand_alone_first" | "stand_alone_refi" | "stand_alone_second" | "state_veterans" | "usda" | "va";
     type LenderType = "bank" | "credit_union" | "finance_company" | "government" | "individual_private_party" | "insurance" | "internet" | "lending_institution" | "mortgage_company" | "other_company" | "reo_foreclosure_company" | "seller" | "subprime_lender";
     type ARMIndex = "cd_6m" | "cofi" | "libor_1m" | "libor_1y" | "libor_2m" | "libor_3m" | "libor_6m" | "mta_12m" | "prime" | "tbill_10y" | "tbill_1y" | "tbill_3y" | "tbill_5y" | "tbill_6m";
@@ -87,30 +88,36 @@ export declare namespace PropertyLevel {
         listing_status?: string;
         listing_date?: string;
     }
-    interface Lien {
-        arm_change_date?: string;
-        arm_index?: ARMIndex;
-        due_date?: string;
+    interface DebtOligationParties {
         grantee_1?: string;
         grantee_1_forenames?: string;
         grantee_2?: string;
         grantee_2_forenames?: string;
         grantor_1?: string;
+        grantor_1_forenames?: string;
         grantor_2?: string;
-        heloc?: boolean;
+        grantor_2_forenames?: string;
+    }
+    interface LienInfoBase {
+        due_date?: string;
         interest_rate?: number;
-        is_arm?: boolean;
+        heloc?: boolean;
+        arm_index?: ARMIndex;
         lender_type?: LenderType;
+        lien_type?: LienType;
+        stand_alone_refi?: boolean;
+    }
+    interface Lien extends LienInfoBase, DebtOligationParties {
+        arm_change_date?: string;
+        is_arm?: boolean;
         lien_amount?: number;
         lien_length_months?: number;
         lien_months_completed_as_of_date?: number;
-        lien_type?: LienType;
         monthly_payment?: number;
         notice_ids?: number[];
         outstanding_principal?: number;
         principal_paid_as_of_date?: number;
         record_date?: string;
-        stand_alone_refi?: boolean;
     }
     interface LTVDetails {
         as_of_month?: string;
@@ -137,38 +144,28 @@ export declare namespace PropertyLevel {
         value?: number;
         source?: LTVOriginationSourceType;
     }
-    interface MortgageLienItem {
-        due_date?: string;
+    interface CountyRecorderRecord {
+        apn?: string;
+        fips?: string;
         event_type?: string;
-        mortgage_years?: number;
-        grantee_1?: string;
-        grantee_1_forenames?: string;
-        grantee_2?: string;
-        grantee_2_forenames?: string;
-        grantor_2?: string;
+        record_date?: string;
+        record_doc?: string;
+        record_book?: number;
         record_page?: number;
+    }
+    interface MortgageLienItem extends LienInfoBase, DebtOligationParties, CountyRecorderRecord {
+        mortgage_years?: number;
         fifteen_yr?: number;
         amount?: number;
-        apn?: string;
-        record_date?: string;
         thirty_yr?: number;
-        fips?: string;
-        record_doc?: string;
-        grantor_1?: string;
-        interest_rate?: number;
-        record_book?: number;
         hc_interest_rate?: number;
-        arm_index?: ARMIndex;
-        heloc?: boolean;
-        lien_type?: LienType;
-        lender_type?: LenderType;
-        stand_alone_refi?: boolean;
     }
     type MortgageLien = MortgageLienItem[];
     type MortgageLienAll = MortgageLienItem[];
-    interface NodItem {
+    interface Nod {
+        last_default_date?: string;
+        default_history?: CountyRecorderRecord[];
     }
-    type Nod = NodItem[];
     interface OnMarket {
         currently_listed?: boolean;
         listing_price?: number;
@@ -216,10 +213,11 @@ export declare namespace PropertyLevel {
         value?: number;
         monthly_rent?: number;
     }
-    interface SalesHistoryItem {
+    interface SalesHistoryItem extends DebtOligationParties, CountyRecorderRecord {
+        amount?: number;
     }
     type SalesHistory = SalesHistoryItem[];
-    interface School {
+    interface SchoolInfo {
         city?: string;
         verified_school_boundaries?: boolean;
         distance_miles?: number;
@@ -231,6 +229,13 @@ export declare namespace PropertyLevel {
         education_level?: EducationLevel[];
         address?: string;
         assessment_year?: number;
+    }
+    interface School {
+        school?: {
+            elementary?: SchoolInfo[];
+            middle?: SchoolInfo[];
+            high?: SchoolInfo[];
+        };
     }
     interface Value {
         price_upr?: number;

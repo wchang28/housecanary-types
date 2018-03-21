@@ -151,6 +151,13 @@ export namespace PropertyLevel {
     | "Leased"
     ;
 
+    export type CountyRecorderRecordEventType
+    = "lien_concurrent_1"
+    | "lien_concurrent_2"
+    | "lien_stand_alone"
+    | "default_notice"
+    | "arms_length_sale"
+
     export type LienType
     = "arm"
     | "commercial"
@@ -302,30 +309,38 @@ export namespace PropertyLevel {
         listing_date?: string;
     }
 
-    export interface Lien {
-        arm_change_date?: string;
-        arm_index?: ARMIndex;
-        due_date?: string;
+    export interface DebtOligationParties {
         grantee_1?: string;
         grantee_1_forenames?: string;
         grantee_2?: string;
         grantee_2_forenames?: string;
         grantor_1?: string;
+        grantor_1_forenames?: string;
         grantor_2?: string;
-        heloc?: boolean;
+        grantor_2_forenames?: string;
+    }
+    
+    export interface LienInfoBase {
+        due_date?: string;
         interest_rate?: number;
-        is_arm?: boolean;
+        heloc?: boolean;
+        arm_index?: ARMIndex;
         lender_type?: LenderType;
+        lien_type?: LienType;
+        stand_alone_refi?: boolean;
+    }
+
+    export interface Lien extends LienInfoBase, DebtOligationParties {
+        arm_change_date?: string;
+        is_arm?: boolean;
         lien_amount?: number;
         lien_length_months?: number;
         lien_months_completed_as_of_date?: number;
-        lien_type?: LienType,
         monthly_payment?: number;
         notice_ids?: number[];
         outstanding_principal?: number;
         principal_paid_as_of_date?: number;
         record_date?: string;
-        stand_alone_refi?: boolean;
     }
 
     export interface LTVDetails {
@@ -355,42 +370,32 @@ export namespace PropertyLevel {
         source?: LTVOriginationSourceType;
     }
 
-    export interface MortgageLienItem {
-        due_date?: string;
-        event_type?: string;
-        mortgage_years?: number;
-        grantee_1?: string;
-        grantee_1_forenames?: string;
-        grantee_2?: string;
-        grantee_2_forenames?: string;
-        grantor_2?: string;
+    export interface CountyRecorderRecord {
+        apn?: string;
+        fips?: string;
+        event_type?: string; // "lien_concurrent_1", "lien_concurrent_2", "lien_stand_alone", "default_notice", "arms_length_sale", ...
+        record_date?: string;
+        record_doc?: string;
+        record_book?: number;
         record_page?: number;
+    }
+
+    export interface MortgageLienItem extends LienInfoBase, DebtOligationParties, CountyRecorderRecord {
+        mortgage_years?: number;
         fifteen_yr?: number;
         amount?: number;
-        apn?: string;
-        record_date?: string;
         thirty_yr?: number;
-        fips?: string;
-        record_doc?: string;
-        grantor_1?: string;
-        interest_rate?: number;
-        record_book?: number;
         hc_interest_rate?: number;
-        arm_index?: ARMIndex;
-        heloc?: boolean;
-        lien_type?: LienType;
-        lender_type?: LenderType;
-        stand_alone_refi?: boolean;
     }
 
     export type MortgageLien = MortgageLienItem[];
     export type MortgageLienAll = MortgageLienItem[];
 
-    export interface NodItem {
-        // TODO:
+    // Notice of default
+    export interface Nod {
+        last_default_date?: string;
+        default_history?: CountyRecorderRecord[];
     }
-
-    export type Nod = NodItem[];
 
     export interface OnMarket {
         currently_listed?: boolean;
@@ -448,12 +453,13 @@ export namespace PropertyLevel {
         monthly_rent?: number;
     }
 
-    export interface SalesHistoryItem {
-        // TODO:
+    export interface SalesHistoryItem extends DebtOligationParties, CountyRecorderRecord {
+        amount?: number;
     }
+
     export type SalesHistory = SalesHistoryItem[];
 
-    export interface School {
+    export interface SchoolInfo {
         city?: string;
         verified_school_boundaries?: boolean;
         distance_miles?: number;
@@ -465,6 +471,14 @@ export namespace PropertyLevel {
         education_level?: EducationLevel[];
         address?: string;
         assessment_year?: number;
+    }
+
+    export interface School {
+        school?: {
+            elementary?: SchoolInfo[];
+            middle?: SchoolInfo[];
+            high?: SchoolInfo[];
+        }
     }
 
     export interface Value {
