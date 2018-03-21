@@ -6,6 +6,8 @@ export interface ComponentData<COMP> {
 
 export type StateCode = ('AK' | 'AL' | 'AR' | 'AZ' | 'CA' | 'CO' | 'CT' | 'DC' | 'DE' | 'FL' | 'GA' | 'GU' | 'HI' | 'IA' | 'ID' | 'IL' | 'IN' | 'KS' | 'KY' | 'LA' | 'MA' | 'MD' | 'ME' | 'MI' | 'MN' | 'MO' | 'MS' | 'MT' | 'NC' | 'ND' | 'NE' | 'NH' | 'NJ' | 'NM' | 'NV' | 'NY' | 'OH' | 'OK' | 'OR' | 'PA' | 'PR' | 'RI' | 'SC' | 'SD' | 'TN' | 'TX' | 'UT' | 'VA' | 'VT' | 'WA' | 'WI' | 'WV' | 'WY');
 
+export type YesOrNo = ("yes" | "no");
+
 // property level
 export namespace PropertyLevel {
     export type Component
@@ -137,6 +139,22 @@ export namespace PropertyLevel {
     | "avm_state"
     ;
 
+    export type BuildingConditionScore
+    = 1     // Unsound
+    | 2     // Poor
+    | 3     // Fair
+    | 4     // Good
+    | 5     // Excellent
+    ;
+
+    export type BuildingQualityScore
+    = 1     // E grade
+    | 2     // D grade
+    | 3     // C grade
+    | 4     // B grade
+    | 5     // A grade
+    ;
+
     export type ListingStatusType
     = "Coming Soon"
     | "Active"
@@ -212,7 +230,7 @@ export namespace PropertyLevel {
     | "tbill_6m"
     ;
 
-    export type PropertyType
+    export type PropertyTypeCode
     = "SFD" // single-family dwelling
     | "TH"  // townhome
     | "CND" // condo
@@ -275,7 +293,38 @@ export namespace PropertyLevel {
     }
 
     export interface DetailsProperty {
-        // TODO:
+        air_conditioning?: YesOrNo;
+        attic?: boolean;
+        basement?: string;
+        building_area_sq_ft?: number;
+        building_condition_score?: BuildingConditionScore;
+        building_quality_score?: BuildingQualityScore;
+        //"construction_type": "Wood";
+        exterior_walls?: string;
+        fireplace?: boolean;
+        full_bath_count?: number;
+        garage_parking_of_cars?: number;
+        garage_type_parking?: string;
+        heating?: string;
+        heating_fuel_type?: string;
+        no_of_buildings?: number;
+        no_of_stories?: number;
+        number_of_bedrooms?: number;
+        number_of_units?: number;
+        partial_bath_count?: number;
+        pool?: boolean;
+        //"property_type": "Single Family Residential";
+        roof_cover?: string;
+        roof_type?: string;
+        sewer?: string;
+        site_area_acres?: number;
+        //"style": "colonial";
+        total_bath_count?: number;
+        total_number_of_rooms?: number;
+        subdivision?: string;   // Subdivision as reported to the assessor
+        //"water": "municipal";
+        year_built?: number;
+        zoning?: string;        // County-specific property zoning
     }
 
     export interface DetailsAssessment {
@@ -373,7 +422,7 @@ export namespace PropertyLevel {
     export interface CountyRecorderRecord {
         apn?: string;
         fips?: string;
-        event_type?: string; // "lien_concurrent_1", "lien_concurrent_2", "lien_stand_alone", "default_notice", "arms_length_sale", ...
+        event_type?: string; // "lien_concurrent_1" | "lien_concurrent_2" | "lien_stand_alone" | "default_notice" | "arms_length_sale" | ...
         record_date?: string;
         record_doc?: string;
         record_book?: number;
@@ -411,7 +460,7 @@ export namespace PropertyLevel {
     export interface RentalListingStatus {
         listing_price?: number;
         has_price_considerations?: string;
-        listing_status?: ListingStatusType,
+        listing_status?: ListingStatusType;
         lease_payment_frequency?: string;
         listing_date?: string;
     }
@@ -419,8 +468,8 @@ export namespace PropertyLevel {
     export interface RentalOnMarket {
         currently_listed?: boolean;
         listing_date?: string;
-        listing_price?: number,
-        lease_payment_frequency?: LeasePaymentFrequency,
+        listing_price?: number;
+        lease_payment_frequency?: LeasePaymentFrequency;
         has_price_considerations?: string;
     }
 
@@ -438,7 +487,7 @@ export namespace PropertyLevel {
     }
 
     export interface ValueWithinBlock {
-        property_type?: PropertyType;
+        property_type?: PropertyTypeCode;
         housecanary_value_percentile_range?: ValueRange;
         housecanary_value_sqft_percentile_range?: ValueRange;
         client_value_percentile_range?: ValueRange;
@@ -467,7 +516,7 @@ export namespace PropertyLevel {
         zipcode?: string;
         phone?: string;
         state?: StateCode;
-        score?: number,
+        score?: number;
         education_level?: EducationLevel[];
         address?: string;
         assessment_year?: number;

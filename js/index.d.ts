@@ -4,6 +4,7 @@ export interface ComponentData<COMP> {
     result: COMP;
 }
 export declare type StateCode = ('AK' | 'AL' | 'AR' | 'AZ' | 'CA' | 'CO' | 'CT' | 'DC' | 'DE' | 'FL' | 'GA' | 'GU' | 'HI' | 'IA' | 'ID' | 'IL' | 'IN' | 'KS' | 'KY' | 'LA' | 'MA' | 'MD' | 'ME' | 'MI' | 'MN' | 'MO' | 'MS' | 'MT' | 'NC' | 'ND' | 'NE' | 'NH' | 'NJ' | 'NM' | 'NV' | 'NY' | 'OH' | 'OK' | 'OR' | 'PA' | 'PR' | 'RI' | 'SC' | 'SD' | 'TN' | 'TX' | 'UT' | 'VA' | 'VT' | 'WA' | 'WI' | 'WV' | 'WY');
+export declare type YesOrNo = ("yes" | "no");
 export declare namespace PropertyLevel {
     type Component = "property/census" | "property/details" | "property/details_enhanced" | "property/flood" | "property/listing_status" | "property/ltv_details" | "property/ltv_origination" | "property/mortgage_lien" | "property/mortgage_lien_all" | "property/nod" | "property/on_market" | "property/owner_occupied" | "property/rental_listing_status" | "property/rental_on_market" | "property/rental_value" | "property/rental_value_within_block" | "property/rental_yield" | "property/sales_history" | "property/school" | "property/value" | "property/value_by_quality" | "property/value_details_adjusted" | "property/value_forecast" | "property/value_hpi_adjusted" | "property/value_within_block";
     interface RequestItem {
@@ -17,12 +18,14 @@ export declare namespace PropertyLevel {
     type GeoPrecision = "rooftop" | "zip9" | "zip5" | "unknown";
     type FloodZoneCode = "A" | "A1" | "A10" | "A11" | "A12" | "A13" | "A14" | "A15" | "A16" | "A17" | "A18" | "A19" | "A2" | "A20" | "A21" | "A22" | "A23" | "A24" | "A25" | "A26" | "A27" | "A28" | "A29" | "A3" | "A30" | "A4" | "A5" | "A6" | "A7" | "A8" | "A9" | "A99" | "AE" | "AH" | "AO" | "AR" | "B" | "C" | "D" | "V" | "V1" | "V10" | "V11" | "V12" | "V13" | "V14" | "V15" | "V16" | "V17" | "V18" | "V19" | "V2" | "V20" | "V21" | "V22" | "V23" | "V24" | "V25" | "V26" | "V27" | "V28" | "V29" | "V3" | "V30" | "V4" | "V5" | "V6" | "V7" | "V8" | "V9" | "VE" | "X";
     type LTVOriginationSourceType = "deed" | "mls" | "avm_block" | "avm_blockgroup" | "avm_zip" | "avm_msa" | "avm_state";
+    type BuildingConditionScore = 1 | 2 | 3 | 4 | 5;
+    type BuildingQualityScore = 1 | 2 | 3 | 4 | 5;
     type ListingStatusType = "Coming Soon" | "Active" | "Closed" | "Sold" | "Pending" | "Contingent" | "Cancelled" | "Expired" | "Withdrawn" | "Deleted" | "Leased";
     type CountyRecorderRecordEventType = "lien_concurrent_1" | "lien_concurrent_2" | "lien_stand_alone" | "default_notice" | "arms_length_sale";
     type LienType = "arm" | "commercial" | "construction" | "conventional" | "fannie_mae_freddie_mac" | "farmers_home_administration" | "fha" | "land_contract" | "open_end" | "revolving_credit_line" | "second_to_cover_down_payment" | "seller_take_back" | "stand_alone_first" | "stand_alone_refi" | "stand_alone_second" | "state_veterans" | "usda" | "va";
     type LenderType = "bank" | "credit_union" | "finance_company" | "government" | "individual_private_party" | "insurance" | "internet" | "lending_institution" | "mortgage_company" | "other_company" | "reo_foreclosure_company" | "seller" | "subprime_lender";
     type ARMIndex = "cd_6m" | "cofi" | "libor_1m" | "libor_1y" | "libor_2m" | "libor_3m" | "libor_6m" | "mta_12m" | "prime" | "tbill_10y" | "tbill_1y" | "tbill_3y" | "tbill_5y" | "tbill_6m";
-    type PropertyType = "SFD" | "TH" | "CND" | "INC" | "MFH";
+    type PropertyTypeCode = "SFD" | "TH" | "CND" | "INC" | "MFH";
     type LeasePaymentFrequency = "Yearly" | "Semi-Annually" | "Monthly" | "Quarterly" | "Weekly" | "Daily";
     type EducationLevel = "elementary" | "middle" | "high";
     interface AddressInfoStatus {
@@ -62,6 +65,34 @@ export declare namespace PropertyLevel {
         msa?: string;
     }
     interface DetailsProperty {
+        air_conditioning?: YesOrNo;
+        attic?: boolean;
+        basement?: string;
+        building_area_sq_ft?: number;
+        building_condition_score?: BuildingConditionScore;
+        building_quality_score?: BuildingQualityScore;
+        exterior_walls?: string;
+        fireplace?: boolean;
+        full_bath_count?: number;
+        garage_parking_of_cars?: number;
+        garage_type_parking?: string;
+        heating?: string;
+        heating_fuel_type?: string;
+        no_of_buildings?: number;
+        no_of_stories?: number;
+        number_of_bedrooms?: number;
+        number_of_units?: number;
+        partial_bath_count?: number;
+        pool?: boolean;
+        roof_cover?: string;
+        roof_type?: string;
+        sewer?: string;
+        site_area_acres?: number;
+        total_bath_count?: number;
+        total_number_of_rooms?: number;
+        subdivision?: string;
+        year_built?: number;
+        zoning?: string;
     }
     interface DetailsAssessment {
         apn?: string;
@@ -201,7 +232,7 @@ export declare namespace PropertyLevel {
         high?: number;
     }
     interface ValueWithinBlock {
-        property_type?: PropertyType;
+        property_type?: PropertyTypeCode;
         housecanary_value_percentile_range?: ValueRange;
         housecanary_value_sqft_percentile_range?: ValueRange;
         client_value_percentile_range?: ValueRange;
