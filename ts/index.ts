@@ -626,19 +626,46 @@ export namespace PropertyLevel {
         }
     }
 
-    export interface Value {
+    export interface HCModeledValue {
         price_upr?: number;
         price_lwr?: number;
         price_mean?: number;
         fsd?: number;
     }
 
+    export interface Value {
+        value?: HCModeledValue;
+    }
+
+    export interface PriceMeanByQuality {
+        poor?: number;
+        subpar?: number;
+        fair?: number;
+        good?: number;
+        excellent?: number;
+    }
+
+    export interface HCModeledValueByQuality extends HCModeledValue {
+        price_mean_by_quality?: PriceMeanByQuality;
+    }
+
     export interface ValueByQuality {
-        // TODO:
+        value?: HCModeledValueByQuality;
+    }
+
+    export interface ValueDetailsAdjustedRequest {
+        add_beds?: number;  // int
+        add_baths?: number; // float
+        add_sqft?: number;  // int
+        add_pools?: number; // int
     }
 
     export interface ValueDetailsAdjusted {
-        // TODO:
+        adjusted_value_to?: number;
+        adjusted_beds_to?: number;
+        adjusted_baths_to?: number;
+        adjusted_sqft_to?: number;
+        adjusted_pools_to?: number;
     }
 
     export interface ValueForecast { 
@@ -651,8 +678,28 @@ export namespace PropertyLevel {
         month_36?: {value: number};
     }
 
+    export interface ValueHPIAdjustedRequest {
+        adjust_to_date?: string;   // yyyy-mm-01
+        client_value?: number;
+        client_date?: string;   // yyyy-mm-01
+    }
+
+    export interface ValueHPIAdjustedResult {
+        from_value?: number;
+        from_date?: string; // yyyy-mm-01
+        to_date?: string;   // yyyy-mm-01
+        adjusted_by?: {
+            block?: number;
+            blockgroup?: number;
+            zip?: number;
+            msa?: number;
+            state?: number;
+        }
+    }
+
     export interface ValueHPIAdjusted {
-        // TODO:
+        client_value_adjusted?: ValueHPIAdjustedResult;
+        housecanary_value_adjusted?: ValueHPIAdjustedResult;
     }
 
     export interface MGetItem {

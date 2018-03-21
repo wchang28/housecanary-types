@@ -302,15 +302,40 @@ export declare namespace PropertyLevel {
             high?: SchoolInfo[];
         };
     }
-    interface Value {
+    interface HCModeledValue {
         price_upr?: number;
         price_lwr?: number;
         price_mean?: number;
         fsd?: number;
     }
+    interface Value {
+        value?: HCModeledValue;
+    }
+    interface PriceMeanByQuality {
+        poor?: number;
+        subpar?: number;
+        fair?: number;
+        good?: number;
+        excellent?: number;
+    }
+    interface HCModeledValueByQuality extends HCModeledValue {
+        price_mean_by_quality?: PriceMeanByQuality;
+    }
     interface ValueByQuality {
+        value?: HCModeledValueByQuality;
+    }
+    interface ValueDetailsAdjustedRequest {
+        add_beds?: number;
+        add_baths?: number;
+        add_sqft?: number;
+        add_pools?: number;
     }
     interface ValueDetailsAdjusted {
+        adjusted_value_to?: number;
+        adjusted_beds_to?: number;
+        adjusted_baths_to?: number;
+        adjusted_sqft_to?: number;
+        adjusted_pools_to?: number;
     }
     interface ValueForecast {
         month_03?: {
@@ -335,7 +360,26 @@ export declare namespace PropertyLevel {
             value: number;
         };
     }
+    interface ValueHPIAdjustedRequest {
+        adjust_to_date?: string;
+        client_value?: number;
+        client_date?: string;
+    }
+    interface ValueHPIAdjustedResult {
+        from_value?: number;
+        from_date?: string;
+        to_date?: string;
+        adjusted_by?: {
+            block?: number;
+            blockgroup?: number;
+            zip?: number;
+            msa?: number;
+            state?: number;
+        };
+    }
     interface ValueHPIAdjusted {
+        client_value_adjusted?: ValueHPIAdjustedResult;
+        housecanary_value_adjusted?: ValueHPIAdjustedResult;
     }
     interface MGetItem {
         address_info: AddressInfo;
