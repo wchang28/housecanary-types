@@ -28,6 +28,9 @@ export declare namespace PropertyLevel {
     type GarageTypeParking = "attached_garage" | "built_in" | "carport" | "covered" | "detached_garage" | "garage" | "mixed" | "none" | "open" | "parking_lot" | "parking_structure" | "pole" | "tuckunder" | "underground_basement" | "yes";
     type HeatingType = "baseboard" | "central" | "electric" | "floor_wall" | "forced_air_unit" | "gas" | "gravity" | "heat_pump" | "hot_water" | "none" | "oil" | "other" | "propane" | "radiant" | "solar" | "space_suspended" | "steam" | "vent" | "wood_burning" | "yes" | "zone";
     type HeatingFuelType = "electric" | "gas" | "geo_thermal" | "none" | "oil" | "propane" | "solar" | "wood";
+    type RoofCoverType = "Aluminum" | "Asbestos" | "Asphalt" | "Bermuda" | "Built-up" | "Composition Shingle" | "Concrete" | "Fiberglass" | "Gravel/Rock" | "Metal" | "Other" | "Roll Composition" | "Shingle (Not Wood)" | "Slate" | "Steel" | "Tar & Gravel" | "Tile" | "Urethane" | "Wood" | "Wood Shake/Shingles";
+    type RoofType = "Flat" | "Gable" | "Gable or hip" | "Gambrel" | "Hip" | "Irregular/cathedral" | "Mansard" | "Rigid frame bar joint" | "Shed" | "Wood truss";
+    type SewerType = "municipal" | "none" | "septic" | "storm" | "yes";
     type PropertyStyle = "a_frame" | "bungalow" | "cape_cod" | "colonial" | "contemporary" | "conventional" | "cottage" | "custom" | "dome" | "english" | "french_provincial" | "georgian" | "historical" | "high_rise" | "log_cabin_rustic" | "mansion" | "mediterranean" | "modern" | "modular" | "other" | "prefab_modular" | "ranch_rambler" | "raised_ranch" | "spanish" | "traditional" | "tudor" | "unfinished_under_construction" | "victorian";
     type WaterConnectionType = "cistern" | "municipal" | "none" | "spring" | "well" | "yes";
     type ListingStatusType = "Coming Soon" | "Active" | "Closed" | "Sold" | "Pending" | "Contingent" | "Cancelled" | "Expired" | "Withdrawn" | "Deleted" | "Leased";
@@ -95,9 +98,9 @@ export declare namespace PropertyLevel {
         partial_bath_count?: number;
         pool?: boolean;
         property_type?: PropertyType;
-        roof_cover?: string;
-        roof_type?: string;
-        sewer?: string;
+        roof_cover?: RoofCoverType;
+        roof_type?: RoofType;
+        sewer?: SewerType;
         site_area_acres?: number;
         style?: PropertyStyle;
         total_bath_count?: number;

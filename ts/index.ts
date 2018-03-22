@@ -284,6 +284,50 @@ export namespace PropertyLevel {
     | "wood"
     ; 
 
+    export type RoofCoverType
+    = "Aluminum"
+    | "Asbestos"
+    | "Asphalt"
+    | "Bermuda"
+    | "Built-up"
+    | "Composition Shingle"
+    | "Concrete"
+    | "Fiberglass"
+    | "Gravel/Rock"
+    | "Metal"
+    | "Other"
+    | "Roll Composition"
+    | "Shingle (Not Wood)"
+    | "Slate"
+    | "Steel"
+    | "Tar & Gravel"
+    | "Tile"
+    | "Urethane"
+    | "Wood"
+    | "Wood Shake/Shingles"
+    ;
+    
+    export type RoofType
+    = "Flat"
+    | "Gable"
+    | "Gable or hip"
+    | "Gambrel"
+    | "Hip"
+    | "Irregular/cathedral"
+    | "Mansard"
+    | "Rigid frame bar joint"
+    | "Shed"
+    | "Wood truss"
+    ;
+
+    export type SewerType
+    = "municipal"
+    | "none"
+    | "septic"
+    | "storm"
+    | "yes"
+    ;
+
     export type PropertyStyle
     = "a_frame"
     | "bungalow"
@@ -480,9 +524,9 @@ export namespace PropertyLevel {
         partial_bath_count?: number;    // can be float
         pool?: boolean;
         property_type?: PropertyType;
-        roof_cover?: string;
-        roof_type?: string;
-        sewer?: string;
+        roof_cover?: RoofCoverType;
+        roof_type?: RoofType;
+        sewer?: SewerType;
         site_area_acres?: number;
         style?: PropertyStyle;
         total_bath_count?: number;
