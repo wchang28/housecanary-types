@@ -16,6 +16,7 @@ export declare namespace PropertyLevel {
         city?: string;
         zipcode?: string;
         slug?: string;
+        components?: string;
     }
     type GeoPrecision = "rooftop" | "zip9" | "zip5" | "unknown";
     type LTVOriginationSourceType = "deed" | "mls" | "avm_block" | "avm_blockgroup" | "avm_zip" | "avm_msa" | "avm_state";

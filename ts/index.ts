@@ -128,6 +128,7 @@ export namespace PropertyLevel {
         city?: string;
         zipcode?: string;
         slug?: string;
+        components?: string;
     }
 
     export type GeoPrecision
