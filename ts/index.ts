@@ -147,6 +147,29 @@ export namespace PropertyLevel {
     | "avm_state"
     ;
 
+    export type AirConditioningType
+    = "central"
+    | "evaporative_cooler"
+    | "none"
+    | "other"
+    | "packaged_unit"
+    | "partial"
+    | "refrigeration"
+    | "window_unit"
+    | "yes"
+    ;
+
+    export type BasementType
+    = "basement_not_specified"
+    | "daylight_full"
+    | "daylight_partial"
+    | "full_basement"
+    | "improved_basement_finished"
+    | "no_basement"
+    | "partial_basement"
+    | "unfinished_basement"
+    ;
+
     export type BuildingConditionScore
     = 1     // Unsound
     | 2     // Poor
@@ -174,15 +197,92 @@ export namespace PropertyLevel {
     | "Light"
     | "Log"
     | "Manufactured"
-    | "Other"
     | "Masonry"
     | "Metal"
+    | "Mixed"
+    | "Other"
     | "Steel"
     | "Stone"
     | "Tilt-up (pre-cast concrete)"
     | "Wood"
-    | "Mixed"
     ;
+
+    export type ExteriorWallsType
+    = "asbestos_shingle"
+    | "block"
+    | "brick"
+    | "brick_veneer"
+    | "combination"
+    | "composition"
+    | "concrete"
+    | "concrete_block"
+    | "log"
+    | "masonry"
+    | "metal"
+    | "other"
+    | "rock_stone"
+    | "shingle_not_wood"
+    | "siding_alum_vinyl"
+    | "stucco"
+    | "tile"
+    | "tilt_up_pre_cast_concrete"
+    | "wood"
+    | "wood_shingle"
+    | "wood_siding"
+    ;
+
+    export type GarageTypeParking
+    = "attached_garage"
+    | "built_in"
+    | "carport"
+    | "covered"
+    | "detached_garage"
+    | "garage"
+    | "mixed"
+    | "none"
+    | "open"
+    | "parking_lot"
+    | "parking_structure"
+    | "pole"
+    | "tuckunder"
+    | "underground_basement"
+    | "yes"
+    ;
+
+    export type HeatingType
+    = "baseboard"
+    | "central"
+    | "electric"
+    | "floor_wall"
+    | "forced_air_unit"
+    | "gas"
+    | "gravity"
+    | "heat_pump"
+    | "hot_water"
+    | "none"
+    | "oil"
+    | "other"
+    | "propane"
+    | "radiant"
+    | "solar"
+    | "space_suspended"
+    | "steam"
+    | "vent"
+    | "wood_burning"
+    | "yes"
+    | "zone"
+    ;
+
+    export type HeatingFuelType
+    = "electric"
+    | "gas"
+    | "geo_thermal"
+    | "none"
+    | "oil"
+    | "propane"
+    | "solar"
+    | "wood"
+    ; 
 
     export type PropertyStyle
     = "a_frame"
@@ -359,20 +459,20 @@ export namespace PropertyLevel {
     }
 
     export interface DetailsProperty {
-        air_conditioning?: YesOrNo;
+        air_conditioning?: AirConditioningType;
         attic?: boolean;
-        basement?: string;
+        basement?: BasementType;
         building_area_sq_ft?: number;
         building_condition_score?: BuildingConditionScore;
         building_quality_score?: BuildingQualityScore;
         construction_type?: ConstructionType;
-        exterior_walls?: string;
+        exterior_walls?: ExteriorWallsType;
         fireplace?: boolean;
         full_bath_count?: number;
         garage_parking_of_cars?: number;
-        garage_type_parking?: string;
-        heating?: string;
-        heating_fuel_type?: string;
+        garage_type_parking?: GarageTypeParking;
+        heating?: HeatingType;
+        heating_fuel_type?: HeatingFuelType;
         no_of_buildings?: number;
         no_of_stories?: number;
         number_of_bedrooms?: number;

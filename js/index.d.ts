@@ -19,9 +19,15 @@ export declare namespace PropertyLevel {
     }
     type GeoPrecision = "rooftop" | "zip9" | "zip5" | "unknown";
     type LTVOriginationSourceType = "deed" | "mls" | "avm_block" | "avm_blockgroup" | "avm_zip" | "avm_msa" | "avm_state";
+    type AirConditioningType = "central" | "evaporative_cooler" | "none" | "other" | "packaged_unit" | "partial" | "refrigeration" | "window_unit" | "yes";
+    type BasementType = "basement_not_specified" | "daylight_full" | "daylight_partial" | "full_basement" | "improved_basement_finished" | "no_basement" | "partial_basement" | "unfinished_basement";
     type BuildingConditionScore = 1 | 2 | 3 | 4 | 5;
     type BuildingQualityScore = 1 | 2 | 3 | 4 | 5;
-    type ConstructionType = "Adobe" | "Brick" | "Concrete" | "Concrete Block" | "Dome" | "Frame" | "Heavy" | "Light" | "Log" | "Manufactured" | "Other" | "Masonry" | "Metal" | "Steel" | "Stone" | "Tilt-up (pre-cast concrete)" | "Wood" | "Mixed";
+    type ConstructionType = "Adobe" | "Brick" | "Concrete" | "Concrete Block" | "Dome" | "Frame" | "Heavy" | "Light" | "Log" | "Manufactured" | "Masonry" | "Metal" | "Mixed" | "Other" | "Steel" | "Stone" | "Tilt-up (pre-cast concrete)" | "Wood";
+    type ExteriorWallsType = "asbestos_shingle" | "block" | "brick" | "brick_veneer" | "combination" | "composition" | "concrete" | "concrete_block" | "log" | "masonry" | "metal" | "other" | "rock_stone" | "shingle_not_wood" | "siding_alum_vinyl" | "stucco" | "tile" | "tilt_up_pre_cast_concrete" | "wood" | "wood_shingle" | "wood_siding";
+    type GarageTypeParking = "attached_garage" | "built_in" | "carport" | "covered" | "detached_garage" | "garage" | "mixed" | "none" | "open" | "parking_lot" | "parking_structure" | "pole" | "tuckunder" | "underground_basement" | "yes";
+    type HeatingType = "baseboard" | "central" | "electric" | "floor_wall" | "forced_air_unit" | "gas" | "gravity" | "heat_pump" | "hot_water" | "none" | "oil" | "other" | "propane" | "radiant" | "solar" | "space_suspended" | "steam" | "vent" | "wood_burning" | "yes" | "zone";
+    type HeatingFuelType = "electric" | "gas" | "geo_thermal" | "none" | "oil" | "propane" | "solar" | "wood";
     type PropertyStyle = "a_frame" | "bungalow" | "cape_cod" | "colonial" | "contemporary" | "conventional" | "cottage" | "custom" | "dome" | "english" | "french_provincial" | "georgian" | "historical" | "high_rise" | "log_cabin_rustic" | "mansion" | "mediterranean" | "modern" | "modular" | "other" | "prefab_modular" | "ranch_rambler" | "raised_ranch" | "spanish" | "traditional" | "tudor" | "unfinished_under_construction" | "victorian";
     type WaterConnectionType = "cistern" | "municipal" | "none" | "spring" | "well" | "yes";
     type ListingStatusType = "Coming Soon" | "Active" | "Closed" | "Sold" | "Pending" | "Contingent" | "Cancelled" | "Expired" | "Withdrawn" | "Deleted" | "Leased";
@@ -68,20 +74,20 @@ export declare namespace PropertyLevel {
         msa?: string;
     }
     interface DetailsProperty {
-        air_conditioning?: YesOrNo;
+        air_conditioning?: AirConditioningType;
         attic?: boolean;
-        basement?: string;
+        basement?: BasementType;
         building_area_sq_ft?: number;
         building_condition_score?: BuildingConditionScore;
         building_quality_score?: BuildingQualityScore;
         construction_type?: ConstructionType;
-        exterior_walls?: string;
+        exterior_walls?: ExteriorWallsType;
         fireplace?: boolean;
         full_bath_count?: number;
         garage_parking_of_cars?: number;
-        garage_type_parking?: string;
-        heating?: string;
-        heating_fuel_type?: string;
+        garage_type_parking?: GarageTypeParking;
+        heating?: HeatingType;
+        heating_fuel_type?: HeatingFuelType;
         no_of_buildings?: number;
         no_of_stories?: number;
         number_of_bedrooms?: number;
