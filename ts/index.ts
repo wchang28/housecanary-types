@@ -381,6 +381,21 @@ export namespace PropertyLevel {
     | "Withdrawn"
     | "Deleted"
     | "Leased"
+    | "Not Listed"
+    ;
+    
+    export type RentalListingStatusType
+    = "Coming Soon"
+    | "Active"
+    | "Closed"
+    | "Sold"
+    | "Pending"
+    | "Contingent"
+    | "Cancelled"
+    | "Expired"
+    | "Withdrawn"
+    | "Deleted"
+    | "Leased"
     ;
 
     export type LienType
@@ -594,7 +609,7 @@ export namespace PropertyLevel {
     export interface ListingStatus {
         listing_price?: number;
         has_price_considerations?: string;
-        listing_status?: string;
+        listing_status?: ListingStatusType;
         listing_date?: string;
     }
 
@@ -662,7 +677,7 @@ export namespace PropertyLevel {
     export interface CountyRecorderRecord {
         apn?: string;
         fips?: string;
-        event_type?: string; // "lien_concurrent_1" | "lien_concurrent_2" | "lien_stand_alone" | "default_notice" | "arms_length_sale" | ...
+        event_type?: string; // "lien_concurrent_1" | "lien_concurrent_2" | "lien_stand_alone" | "default_notice" | "arms_length_sale" | "sale_other" | ...
         record_date?: string;
         record_doc?: string;
         record_book?: number;
@@ -700,7 +715,7 @@ export namespace PropertyLevel {
     export interface RentalListingStatus {
         listing_price?: number;
         has_price_considerations?: string;
-        listing_status?: ListingStatusType;
+        listing_status?: RentalListingStatusType;
         lease_payment_frequency?: string;
         listing_date?: string;
     }

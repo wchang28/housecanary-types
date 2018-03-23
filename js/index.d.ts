@@ -34,7 +34,8 @@ export declare namespace PropertyLevel {
     type SewerType = "municipal" | "none" | "septic" | "storm" | "yes";
     type PropertyStyle = "a_frame" | "bungalow" | "cape_cod" | "colonial" | "contemporary" | "conventional" | "cottage" | "custom" | "dome" | "english" | "french_provincial" | "georgian" | "historical" | "high_rise" | "log_cabin_rustic" | "mansion" | "mediterranean" | "modern" | "modular" | "other" | "prefab_modular" | "ranch_rambler" | "raised_ranch" | "spanish" | "traditional" | "tudor" | "unfinished_under_construction" | "victorian";
     type WaterConnectionType = "cistern" | "municipal" | "none" | "spring" | "well" | "yes";
-    type ListingStatusType = "Coming Soon" | "Active" | "Closed" | "Sold" | "Pending" | "Contingent" | "Cancelled" | "Expired" | "Withdrawn" | "Deleted" | "Leased";
+    type ListingStatusType = "Coming Soon" | "Active" | "Closed" | "Sold" | "Pending" | "Contingent" | "Cancelled" | "Expired" | "Withdrawn" | "Deleted" | "Leased" | "Not Listed";
+    type RentalListingStatusType = "Coming Soon" | "Active" | "Closed" | "Sold" | "Pending" | "Contingent" | "Cancelled" | "Expired" | "Withdrawn" | "Deleted" | "Leased";
     type LienType = "arm" | "commercial" | "construction" | "conventional" | "fannie_mae_freddie_mac" | "farmers_home_administration" | "fha" | "land_contract" | "open_end" | "revolving_credit_line" | "second_to_cover_down_payment" | "seller_take_back" | "stand_alone_first" | "stand_alone_refi" | "stand_alone_second" | "state_veterans" | "usda" | "va";
     type LenderType = "bank" | "credit_union" | "finance_company" | "government" | "individual_private_party" | "insurance" | "internet" | "lending_institution" | "mortgage_company" | "other_company" | "reo_foreclosure_company" | "seller" | "subprime_lender";
     type ARMIndex = "cd_6m" | "cofi" | "libor_1m" | "libor_1y" | "libor_2m" | "libor_3m" | "libor_6m" | "mta_12m" | "prime" | "tbill_10y" | "tbill_1y" | "tbill_3y" | "tbill_5y" | "tbill_6m";
@@ -160,7 +161,7 @@ export declare namespace PropertyLevel {
     interface ListingStatus {
         listing_price?: number;
         has_price_considerations?: string;
-        listing_status?: string;
+        listing_status?: ListingStatusType;
         listing_date?: string;
     }
     interface DebtOligationParties {
@@ -253,7 +254,7 @@ export declare namespace PropertyLevel {
     interface RentalListingStatus {
         listing_price?: number;
         has_price_considerations?: string;
-        listing_status?: ListingStatusType;
+        listing_status?: RentalListingStatusType;
         lease_payment_frequency?: string;
         listing_date?: string;
     }
