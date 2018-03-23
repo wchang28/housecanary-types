@@ -159,10 +159,10 @@ export declare namespace PropertyLevel {
         panel_number?: string;
     }
     interface ListingStatus {
+        listing_date?: string;
         listing_price?: number;
         has_price_considerations?: string;
         listing_status?: ListingStatusType;
-        listing_date?: string;
     }
     interface DebtOligationParties {
         grantee_1?: string;
@@ -243,34 +243,31 @@ export declare namespace PropertyLevel {
         default_history?: CountyRecorderRecord[];
     }
     interface OnMarket {
-        currently_listed?: boolean;
         listing_price?: number;
         listing_date?: string;
         has_price_considerations?: string;
+        currently_listed?: boolean;
     }
     interface OwnerOccupied {
         owner_occupied?: boolean;
     }
     interface RentalListingStatus {
         listing_price?: number;
+        listing_date?: string;
         has_price_considerations?: string;
         listing_status?: RentalListingStatusType;
-        lease_payment_frequency?: string;
-        listing_date?: string;
-    }
-    interface RentalOnMarket {
-        currently_listed?: boolean;
-        listing_date?: string;
-        listing_price?: number;
         lease_payment_frequency?: LeasePaymentFrequency;
-        has_price_considerations?: string;
     }
-    interface RentalValue {
+    interface RentalOnMarket extends OnMarket {
+        lease_payment_frequency?: LeasePaymentFrequency;
+    }
+    interface HCModeledValue {
         price_upr?: number;
         price_lwr?: number;
         price_mean?: number;
         fsd?: number;
     }
+    type RentalValue = HCModeledValue;
     interface ValueRange {
         name: string;
         low?: number;
@@ -312,12 +309,6 @@ export declare namespace PropertyLevel {
             middle?: SchoolInfo[];
             high?: SchoolInfo[];
         };
-    }
-    interface HCModeledValue {
-        price_upr?: number;
-        price_lwr?: number;
-        price_mean?: number;
-        fsd?: number;
     }
     interface Value {
         value?: HCModeledValue;

@@ -507,6 +507,7 @@ export namespace PropertyLevel {
         status?: AddressInfoStatus;
     }
 
+    // property/census
     export interface Census {
         msa_name?: string;
         tribal_land?: boolean;
@@ -562,6 +563,7 @@ export namespace PropertyLevel {
         tax_amount?: number;
     }
 
+    // property/details
     export interface Details {
         property?: DetailsProperty;
         assessment?: DetailsAssessment;
@@ -594,11 +596,13 @@ export namespace PropertyLevel {
         sale?: SalesInfo;
     }
 
+    // property/details_enhanced
     export interface DetailsEnhanced {
         public_record?: DetailsEnhancedRecord;
         listing_record?: DetailsEnhancedRecord;
     }
 
+    // property/flood
     export interface Flood {
         effective_date?: string;
         flood_risk?: string;
@@ -606,11 +610,13 @@ export namespace PropertyLevel {
         panel_number?: string;
     }
 
+    // property/listing_status
     export interface ListingStatus {
+        listing_date?: string;
         listing_price?: number;
         has_price_considerations?: string;
+
         listing_status?: ListingStatusType;
-        listing_date?: string;
     }
 
     export interface DebtOligationParties {
@@ -647,6 +653,7 @@ export namespace PropertyLevel {
         record_date?: string;
     }
 
+    // property/ltv_details
     export interface LTVDetails {
         as_of_month?: string;
         current_liens?: Lien[];
@@ -667,6 +674,7 @@ export namespace PropertyLevel {
         total_notice_ids?: number[];
     }
 
+    // property/ltv_origination
     export interface LTVOrigination {
         ltv?: number;
         lien?: number;
@@ -692,48 +700,57 @@ export namespace PropertyLevel {
         hc_interest_rate?: number;
     }
 
+    // property/mortgage_lien
     export type MortgageLien = MortgageLienItem[];
+
+    // property/mortgage_lien_all
     export type MortgageLienAll = MortgageLienItem[];
 
+    // property/nod
     // Notice of default
     export interface Nod {
         last_default_date?: string;
         default_history?: CountyRecorderRecord[];
     }
 
+    // property/on_market
     export interface OnMarket {
-        currently_listed?: boolean;
         listing_price?: number;
         listing_date?: string;
         has_price_considerations?: string;
+
+        currently_listed?: boolean;
     }
 
+    // property/owner_occupied
     export interface OwnerOccupied {
         owner_occupied?: boolean;
     }
 
+    // property/rental_listing_status
     export interface RentalListingStatus {
         listing_price?: number;
+        listing_date?: string;
         has_price_considerations?: string;
+
         listing_status?: RentalListingStatusType;
-        lease_payment_frequency?: string;
-        listing_date?: string;
-    }
-
-    export interface RentalOnMarket {
-        currently_listed?: boolean;
-        listing_date?: string;
-        listing_price?: number;
         lease_payment_frequency?: LeasePaymentFrequency;
-        has_price_considerations?: string;
     }
 
-    export interface RentalValue {
+    // property/rental_on_market
+    export interface RentalOnMarket extends OnMarket {
+        lease_payment_frequency?: LeasePaymentFrequency;
+    }
+
+    export interface HCModeledValue {
         price_upr?: number;
         price_lwr?: number;
         price_mean?: number;
         fsd?: number;
     }
+
+    // property/rental_value
+    export type RentalValue = HCModeledValue;
 
     export interface ValueRange {
         name: string;
@@ -741,6 +758,7 @@ export namespace PropertyLevel {
         high?: number;
     }
 
+    // property/value_within_block
     export interface ValueWithinBlock {
         property_type?: PropertyTypeCode;
         housecanary_value_percentile_range?: ValueRange;
@@ -749,8 +767,10 @@ export namespace PropertyLevel {
         client_value_sqft_percentile_range?: ValueRange;
     }
 
+    // property/rental_value_within_block
     export type RentalValueWithinBlock = ValueWithinBlock;
 
+    // property/rental_yield
     export interface RentalYield {
         gross_yield?: number;
         value?: number;
@@ -761,6 +781,7 @@ export namespace PropertyLevel {
         amount?: number;
     }
 
+    // property/sales_history
     export type SalesHistory = SalesHistoryItem[];
 
     export interface SchoolInfo {
@@ -777,6 +798,7 @@ export namespace PropertyLevel {
         assessment_year?: number;
     }
 
+    // property/school
     export interface School {
         school?: {
             elementary?: SchoolInfo[];
@@ -785,13 +807,7 @@ export namespace PropertyLevel {
         }
     }
 
-    export interface HCModeledValue {
-        price_upr?: number;
-        price_lwr?: number;
-        price_mean?: number;
-        fsd?: number;
-    }
-
+    // property/value
     export interface Value {
         value?: HCModeledValue;
     }
@@ -808,6 +824,7 @@ export namespace PropertyLevel {
         price_mean_by_quality?: PriceMeanByQuality;
     }
 
+    // property/value_by_quality
     export interface ValueByQuality {
         value?: HCModeledValueByQuality;
     }
@@ -819,6 +836,7 @@ export namespace PropertyLevel {
         add_pools?: number; // int
     }
 
+    // property/value_details_adjusted
     export interface ValueDetailsAdjusted {
         adjusted_value_to?: number;
         adjusted_beds_to?: number;
@@ -827,6 +845,7 @@ export namespace PropertyLevel {
         adjusted_pools_to?: number;
     }
 
+    // property/value_forecast
     export interface ValueForecast { 
         month_03?: {value: number};
         month_06?: {value: number};
@@ -856,6 +875,7 @@ export namespace PropertyLevel {
         }
     }
 
+    // property/value_hpi_adjusted
     export interface ValueHPIAdjusted {
         client_value_adjusted?: ValueHPIAdjustedResult;
         housecanary_value_adjusted?: ValueHPIAdjustedResult;
