@@ -13,7 +13,7 @@ export interface PropertyGrossYield extends GrossYield {
     gross_yield_average?: number;
     gross_yield_median?: number;
 }
-export interface RentalValueDistrib {
+export interface ValueDistributionByProperty {
     property_type?: PropertyTypeCode;
     value_5?: number;
     value_25?: number;
@@ -35,6 +35,15 @@ export interface RentalValueDistrib {
     value_sqft_mean?: number;
     value_sqft_sd?: number;
     value_sqft_count?: number;
+}
+export interface PropertyValueTimesSeriesItem {
+    month?: string;
+    value_median?: number;
+    value_sqft_median?: number;
+}
+export interface PropertyValueTimeSeries {
+    property_type?: PropertyTypeCode;
+    time_series?: PropertyValueTimesSeriesItem[];
 }
 export interface ComponentData<COMP> {
     api_code_description: string;
@@ -481,7 +490,26 @@ export declare namespace BlockLevel {
     type HazardTornado = HazardWeatherRelated;
     type HazardWind = HazardWeatherRelated;
     type HCRI = PropertyGrossYield;
-    type RentalValueDistribution = RentalValueDistrib;
+    type RentalValueDistribution = ValueDistributionByProperty;
+    interface SuperFundDetailItem {
+        updated_date?: string;
+        link?: string;
+        site_name?: string;
+        npl_status?: string;
+        epa_site_id?: string;
+    }
+    interface SuperFundSites {
+        count?: number;
+        detail?: SuperFundDetailItem[];
+    }
+    interface SuperFund {
+        within_miles_0?: SuperFundSites;
+        within_miles_1?: SuperFundSites;
+        within_miles_4?: SuperFundSites;
+    }
+    type ValueDistribution = ValueDistributionByProperty;
+    type ValueTSForecast = PropertyValueTimeSeries;
+    type ValueTSHistorical = PropertyValueTimeSeries;
     interface MGetItem {
         block_info: BlokInfo;
         "block/crime"?: ComponentData<Crime>;
@@ -492,10 +520,10 @@ export declare namespace BlockLevel {
         "block/hazard_wind"?: ComponentData<HazardWind>;
         "block/hcri"?: ComponentData<HCRI>;
         "block/rental_value_distribution"?: ComponentData<RentalValueDistribution>;
-        "block/superfund"?: ComponentData<any>;
-        "block/value_distribution"?: ComponentData<any>;
-        "block/value_ts_forecast"?: ComponentData<any>;
-        "block/value_ts_historical"?: ComponentData<any>;
+        "block/superfund"?: ComponentData<SuperFund>;
+        "block/value_distribution"?: ComponentData<ValueDistribution>;
+        "block/value_ts_forecast"?: ComponentData<ValueTSForecast>;
+        "block/value_ts_historical"?: ComponentData<ValueTSHistorical>;
     }
     type MGetReturn = MGetResponse<MGetItem>;
 }
@@ -508,14 +536,17 @@ export declare namespace BlockGroupLevel {
         blockgroup_id: string;
     }
     type HCRI = PropertyGrossYield;
-    type RentalValueDistribution = RentalValueDistrib;
+    type RentalValueDistribution = ValueDistributionByProperty;
+    type ValueDistribution = ValueDistributionByProperty;
+    type ValueTSForecast = PropertyValueTimeSeries;
+    type ValueTSHistorical = PropertyValueTimeSeries;
     interface MGetItem {
         blockgroup_info: BlokGroupInfo;
         "blockgroup/hcri"?: ComponentData<HCRI>;
         "blockgroup/rental_value_distribution"?: ComponentData<RentalValueDistribution>;
-        "blockgroup/value_distribution"?: ComponentData<any>;
-        "blockgroup/value_ts_forecast"?: ComponentData<any>;
-        "blockgroup/value_ts_historical"?: ComponentData<any>;
+        "blockgroup/value_distribution"?: ComponentData<ValueDistribution>;
+        "blockgroup/value_ts_forecast"?: ComponentData<ValueTSForecast>;
+        "blockgroup/value_ts_historical"?: ComponentData<ValueTSHistorical>;
     }
     type MGetReturn = MGetResponse<MGetItem>;
 }
