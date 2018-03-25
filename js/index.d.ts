@@ -576,6 +576,29 @@ export declare namespace ZipLevel {
     }
     type AffordabilityTSForecast = AffordabilityTimesSeries;
     type AffordabilityTSHistorical = AffordabilityTimesSeries;
+    interface DetailsMarketMetrics {
+        inventory_total?: number;
+        price_median?: number;
+        estimated_sales_total?: number;
+        market_action_median?: number;
+        months_of_inventory_median?: number;
+        days_on_market_median?: number;
+    }
+    interface DetailsHistorical {
+        cagr_1_year?: number;
+        cagr_5_years?: number;
+        cagr_10_years?: number;
+        cagr_20_years?: number;
+        returns_1_year?: number;
+        returns_5_years?: number;
+        returns_10_years?: number;
+        returns_20_years?: number;
+    }
+    interface Details {
+        single_family?: DetailsMarketMetrics;
+        multi_family?: DetailsMarketMetrics;
+        historical?: DetailsHistorical;
+    }
     type HCRI = GrossYield;
     type HPITSForecast = HPITimesSeries;
     type HPITSHistorical = HPITimesSeries;
@@ -583,7 +606,7 @@ export declare namespace ZipLevel {
         zipcode_info: ZipcodeInfo;
         "zip/affordability_ts_forecast"?: ComponentData<AffordabilityTSForecast>;
         "zip/affordability_ts_historical"?: ComponentData<AffordabilityTSHistorical>;
-        "zip/details"?: ComponentData<any>;
+        "zip/details"?: ComponentData<Details>;
         "zip/hcri"?: ComponentData<HCRI>;
         "zip/hpi_forecast"?: ComponentData<any>;
         "zip/hpi_historical"?: ComponentData<any>;
