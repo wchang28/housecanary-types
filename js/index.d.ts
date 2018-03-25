@@ -613,6 +613,15 @@ export declare namespace ZipLevel {
     type HPIHistorical = HistoricalMetrics;
     type HPITSForecast = HPITimesSeries;
     type HPITSHistorical = HPITimesSeries;
+    type MarketGradeCode = "A" | "B" | "C" | "D" | "F";
+    interface MarketGrade {
+        market_grade?: MarketGradeCode;
+    }
+    interface Volatility {
+        modigliani_risk_adjusted_return?: number;
+        sharpe_ratio?: number;
+        beta?: number;
+    }
     interface MGetItem {
         zipcode_info: ZipcodeInfo;
         "zip/affordability_ts_forecast"?: ComponentData<AffordabilityTSForecast>;
@@ -623,8 +632,8 @@ export declare namespace ZipLevel {
         "zip/hpi_historical"?: ComponentData<HPIHistorical>;
         "zip/hpi_ts_forecast"?: ComponentData<HPITSForecast>;
         "zip/hpi_ts_historical"?: ComponentData<HPITSHistorical>;
-        "zip/market_grade"?: ComponentData<any>;
-        "zip/volatility"?: ComponentData<any>;
+        "zip/market_grade"?: ComponentData<MarketGrade>;
+        "zip/volatility"?: ComponentData<Volatility>;
     }
     type MGetReturn = MGetResponse<MGetItem>;
 }
