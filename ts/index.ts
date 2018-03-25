@@ -1040,10 +1040,35 @@ export namespace ZipLevel {
 
 // metrodiv level
 export namespace MetroDivLevel {
+    export type Component
+    = "metrodiv/affordability_ts_forecast"
+    | "metrodiv/affordability_ts_historical"
+    | "metrodiv/hpi_ts_forecast"
+    | "metrodiv/hpi_ts_historical"
+    ;
+
     export interface RequestItem {
         metrodiv?: string;
     }
+
+    export interface MetroDivInfo {
+        metrodiv: string;
+        metrodiv_name: string;
+        msa: string;
+        msa_name: string;        
+    }
+
     // TODO:
+
+    export interface MGetItem {
+        metrodiv_info: MetroDivInfo;
+        "metrodiv/affordability_ts_forecast"?: ComponentData<any>;
+        "metrodiv/affordability_ts_historical"?: ComponentData<any>;
+        "metrodiv/hpi_ts_forecast"?: ComponentData<any>;
+        "metrodiv/hpi_ts_historical"?: ComponentData<any>;
+    }
+
+    export type MGetReturn = MGetResponse<MGetItem>;
 }
 
 // msa level
