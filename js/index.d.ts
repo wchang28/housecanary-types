@@ -629,6 +629,20 @@ export declare namespace MSALevel {
     }
     type AffordabilityTSForecast = AffordabilityTimesSeries;
     type AffordabilityTSHistorical = AffordabilityTimesSeries;
+    interface Details {
+        msa?: string;
+        msa_name?: string;
+        cagr_1?: number;
+        cagr_5?: number;
+        cagr_10?: number;
+        cagr_20?: number;
+        returns_1?: number;
+        returns_5?: number;
+        returns_10?: number;
+        returns_20?: number;
+        max_12mo_loss?: number;
+        risk_12mo_loss?: number;
+    }
     type HCRI = GrossYield;
     type HPITSForecast = HPITimesSeries;
     type HPITSHistorical = HPITimesSeries;
@@ -636,7 +650,7 @@ export declare namespace MSALevel {
         msa_info: MSAInfo;
         "msa/affordability_ts_forecast"?: ComponentData<AffordabilityTSForecast>;
         "msa/affordability_ts_historical"?: ComponentData<AffordabilityTSHistorical>;
-        "msa/details"?: ComponentData<any>;
+        "msa/details"?: ComponentData<Details>;
         "msa/hcri"?: ComponentData<HCRI>;
         "msa/hpi_ts_forecast"?: ComponentData<HPITSForecast>;
         "msa/hpi_ts_historical"?: ComponentData<HPITSHistorical>;
