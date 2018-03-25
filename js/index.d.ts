@@ -36,23 +36,31 @@ export interface ValueDistributionByProperty {
     value_sqft_sd?: number;
     value_sqft_count?: number;
 }
+export interface TimeSeries<TSI> {
+    time_series: TSI[];
+}
 export interface PropertyValueTimesSeriesItem {
     month?: string;
     value_median?: number;
     value_sqft_median?: number;
 }
-export interface PropertyValueTimeSeries {
+export interface PropertyValueTimeSeries extends TimeSeries<PropertyValueTimesSeriesItem> {
     property_type?: PropertyTypeCode;
-    time_series?: PropertyValueTimesSeriesItem[];
 }
 export interface AffordabilityTimesSeriesItem {
     month?: string;
     afford_pmt?: number;
     afford_detrended?: number;
 }
-export interface AffordabilityTimesSeries {
-    time_series?: AffordabilityTimesSeriesItem[];
+export declare type AffordabilityTimesSeries = TimeSeries<AffordabilityTimesSeriesItem>;
+export interface HPITimesSeriesItem {
+    month?: string;
+    hpi_value?: number;
+    hpi_real?: number;
+    hpi_trend?: number;
+    hpi_distance?: number;
 }
+export declare type HPITimesSeries = TimeSeries<HPITimesSeriesItem>;
 export interface ComponentData<COMP> {
     api_code_description: string;
     api_code: number;
@@ -566,17 +574,21 @@ export declare namespace ZipLevel {
     interface ZipcodeInfo {
         zipcode: string;
     }
+    type AffordabilityTSForecast = AffordabilityTimesSeries;
+    type AffordabilityTSHistorical = AffordabilityTimesSeries;
     type HCRI = GrossYield;
+    type HPITSForecast = HPITimesSeries;
+    type HPITSHistorical = HPITimesSeries;
     interface MGetItem {
         zipcode_info: ZipcodeInfo;
-        "zip/affordability_ts_forecast"?: ComponentData<any>;
-        "zip/affordability_ts_historical"?: ComponentData<any>;
+        "zip/affordability_ts_forecast"?: ComponentData<AffordabilityTSForecast>;
+        "zip/affordability_ts_historical"?: ComponentData<AffordabilityTSHistorical>;
         "zip/details"?: ComponentData<any>;
         "zip/hcri"?: ComponentData<HCRI>;
         "zip/hpi_forecast"?: ComponentData<any>;
         "zip/hpi_historical"?: ComponentData<any>;
-        "zip/hpi_ts_forecast"?: ComponentData<any>;
-        "zip/hpi_ts_historical"?: ComponentData<any>;
+        "zip/hpi_ts_forecast"?: ComponentData<HPITSForecast>;
+        "zip/hpi_ts_historical"?: ComponentData<HPITSHistorical>;
         "zip/market_grade"?: ComponentData<any>;
         "zip/volatility"?: ComponentData<any>;
     }
@@ -593,12 +605,16 @@ export declare namespace MetroDivLevel {
         msa: string;
         msa_name: string;
     }
+    type AffordabilityTSForecast = AffordabilityTimesSeries;
+    type AffordabilityTSHistorical = AffordabilityTimesSeries;
+    type HPITSForecast = HPITimesSeries;
+    type HPITSHistorical = HPITimesSeries;
     interface MGetItem {
         metrodiv_info: MetroDivInfo;
-        "metrodiv/affordability_ts_forecast"?: ComponentData<any>;
-        "metrodiv/affordability_ts_historical"?: ComponentData<any>;
-        "metrodiv/hpi_ts_forecast"?: ComponentData<any>;
-        "metrodiv/hpi_ts_historical"?: ComponentData<any>;
+        "metrodiv/affordability_ts_forecast"?: ComponentData<AffordabilityTSForecast>;
+        "metrodiv/affordability_ts_historical"?: ComponentData<AffordabilityTSHistorical>;
+        "metrodiv/hpi_ts_forecast"?: ComponentData<HPITSForecast>;
+        "metrodiv/hpi_ts_historical"?: ComponentData<HPITSHistorical>;
     }
     type MGetReturn = MGetResponse<MGetItem>;
 }
@@ -611,15 +627,19 @@ export declare namespace MSALevel {
         msa: string;
         msa_name: string;
     }
+    type AffordabilityTSForecast = AffordabilityTimesSeries;
+    type AffordabilityTSHistorical = AffordabilityTimesSeries;
     type HCRI = GrossYield;
+    type HPITSForecast = HPITimesSeries;
+    type HPITSHistorical = HPITimesSeries;
     interface MGetItem {
         msa_info: MSAInfo;
-        "msa/affordability_ts_forecast"?: ComponentData<any>;
-        "msa/affordability_ts_historical"?: ComponentData<any>;
+        "msa/affordability_ts_forecast"?: ComponentData<AffordabilityTSForecast>;
+        "msa/affordability_ts_historical"?: ComponentData<AffordabilityTSHistorical>;
         "msa/details"?: ComponentData<any>;
         "msa/hcri"?: ComponentData<HCRI>;
-        "msa/hpi_ts_forecast"?: ComponentData<any>;
-        "msa/hpi_ts_historical"?: ComponentData<any>;
+        "msa/hpi_ts_forecast"?: ComponentData<HPITSForecast>;
+        "msa/hpi_ts_historical"?: ComponentData<HPITSHistorical>;
     }
     type MGetReturn = MGetResponse<MGetItem>;
 }
@@ -631,14 +651,18 @@ export declare namespace StateLevel {
     interface StateInfo {
         state: StateCode;
     }
+    type AffordabilityTSForecast = AffordabilityTimesSeries;
+    type AffordabilityTSHistorical = AffordabilityTimesSeries;
     type HCRI = GrossYield;
+    type HPITSForecast = HPITimesSeries;
+    type HPITSHistorical = HPITimesSeries;
     interface MGetItem {
         state_info: StateInfo;
-        "state/affordability_ts_forecast"?: ComponentData<any>;
-        "state/affordability_ts_historical"?: ComponentData<any>;
+        "state/affordability_ts_forecast"?: ComponentData<AffordabilityTSForecast>;
+        "state/affordability_ts_historical"?: ComponentData<AffordabilityTSHistorical>;
         "state/hcri"?: ComponentData<HCRI>;
-        "state/hpi_ts_forecast"?: ComponentData<any>;
-        "state/hpi_ts_historical"?: ComponentData<any>;
+        "state/hpi_ts_forecast"?: ComponentData<HPITSForecast>;
+        "state/hpi_ts_historical"?: ComponentData<HPITSHistorical>;
     }
     type MGetReturn = MGetResponse<MGetItem>;
 }

@@ -124,15 +124,18 @@ export interface ValueDistributionByProperty {
     value_sqft_count?: number;
 }
 
+export interface TimeSeries<TSI> {
+    time_series: TSI[];
+}
+
 export interface PropertyValueTimesSeriesItem {
     month?: string; // yyyy-mm-01
     value_median?: number;
     value_sqft_median?: number;    
 }
 
-export interface PropertyValueTimeSeries {
+export interface PropertyValueTimeSeries extends TimeSeries<PropertyValueTimesSeriesItem> {
     property_type?: PropertyTypeCode;
-    time_series?: PropertyValueTimesSeriesItem[];
 }
 
 export interface AffordabilityTimesSeriesItem {
@@ -141,9 +144,17 @@ export interface AffordabilityTimesSeriesItem {
     afford_detrended?: number;
 }
 
-export interface AffordabilityTimesSeries {
-    time_series?: AffordabilityTimesSeriesItem[];
+export type AffordabilityTimesSeries = TimeSeries<AffordabilityTimesSeriesItem>;
+
+export interface HPITimesSeriesItem {
+    month?: string;  // yyyy-mm-01
+    hpi_value?: number;
+    hpi_real?: number;
+    hpi_trend?: number;
+    hpi_distance?: number;
 }
+
+export type HPITimesSeries = TimeSeries<HPITimesSeriesItem>;
 
 export interface ComponentData<COMP> {
     api_code_description: string;
@@ -1158,21 +1169,35 @@ export namespace ZipLevel {
         zipcode: string;
     }
 
+    // zip/affordability_ts_forecast
+    export type AffordabilityTSForecast = AffordabilityTimesSeries;
+    // zip/affordability_ts_historical
+    export type AffordabilityTSHistorical = AffordabilityTimesSeries;
+
     // TODO:
 
     // zip/hcri
     export type HCRI = GrossYield;
 
+    // TODO:
+
+    // zip/hpi_ts_forecast
+    export type HPITSForecast = HPITimesSeries;
+    // zip/hpi_ts_historical
+    export type HPITSHistorical = HPITimesSeries;
+
+    // TODO:
+
     export interface MGetItem {
         zipcode_info: ZipcodeInfo;
-        "zip/affordability_ts_forecast"?: ComponentData<any>;
-        "zip/affordability_ts_historical"?: ComponentData<any>;
+        "zip/affordability_ts_forecast"?: ComponentData<AffordabilityTSForecast>;
+        "zip/affordability_ts_historical"?: ComponentData<AffordabilityTSHistorical>;
         "zip/details"?: ComponentData<any>;
         "zip/hcri"?: ComponentData<HCRI>;
         "zip/hpi_forecast"?: ComponentData<any>;
         "zip/hpi_historical"?: ComponentData<any>;
-        "zip/hpi_ts_forecast"?: ComponentData<any>;
-        "zip/hpi_ts_historical"?: ComponentData<any>;
+        "zip/hpi_ts_forecast"?: ComponentData<HPITSForecast>;
+        "zip/hpi_ts_historical"?: ComponentData<HPITSHistorical>;
         "zip/market_grade"?: ComponentData<any>;
         "zip/volatility"?: ComponentData<any>;
     }
@@ -1200,14 +1225,22 @@ export namespace MetroDivLevel {
         msa_name: string;
     }
 
-    // TODO:
+    // metrodiv/affordability_ts_forecast
+    export type AffordabilityTSForecast = AffordabilityTimesSeries;
+    // metrodiv/affordability_ts_historical
+    export type AffordabilityTSHistorical = AffordabilityTimesSeries;
+
+    // metrodiv/hpi_ts_forecast
+    export type HPITSForecast = HPITimesSeries;
+    // metrodiv/hpi_ts_historical
+    export type HPITSHistorical = HPITimesSeries;
 
     export interface MGetItem {
         metrodiv_info: MetroDivInfo;
-        "metrodiv/affordability_ts_forecast"?: ComponentData<any>;
-        "metrodiv/affordability_ts_historical"?: ComponentData<any>;
-        "metrodiv/hpi_ts_forecast"?: ComponentData<any>;
-        "metrodiv/hpi_ts_historical"?: ComponentData<any>;
+        "metrodiv/affordability_ts_forecast"?: ComponentData<AffordabilityTSForecast>;
+        "metrodiv/affordability_ts_historical"?: ComponentData<AffordabilityTSHistorical>;
+        "metrodiv/hpi_ts_forecast"?: ComponentData<HPITSForecast>;
+        "metrodiv/hpi_ts_historical"?: ComponentData<HPITSHistorical>;
     }
 
     export type MGetReturn = MGetResponse<MGetItem>;
@@ -1233,19 +1266,29 @@ export namespace MSALevel {
         msa_name: string;
     }
 
+    // msa/affordability_ts_forecast
+    export type AffordabilityTSForecast = AffordabilityTimesSeries;
+    // msa/affordability_ts_historical
+    export type AffordabilityTSHistorical = AffordabilityTimesSeries;
+
     // TODO:
 
     // msa/hcri
     export type HCRI = GrossYield;
 
+    // msa/hpi_ts_forecast
+    export type HPITSForecast = HPITimesSeries;
+    // msa/hpi_ts_historical
+    export type HPITSHistorical = HPITimesSeries;
+
     export interface MGetItem {
         msa_info: MSAInfo;
-        "msa/affordability_ts_forecast"?: ComponentData<any>;
-        "msa/affordability_ts_historical"?: ComponentData<any>;
+        "msa/affordability_ts_forecast"?: ComponentData<AffordabilityTSForecast>;
+        "msa/affordability_ts_historical"?: ComponentData<AffordabilityTSHistorical>;
         "msa/details"?: ComponentData<any>;
         "msa/hcri"?: ComponentData<HCRI>;
-        "msa/hpi_ts_forecast"?: ComponentData<any>;
-        "msa/hpi_ts_historical"?: ComponentData<any>;
+        "msa/hpi_ts_forecast"?: ComponentData<HPITSForecast>;
+        "msa/hpi_ts_historical"?: ComponentData<HPITSHistorical>;
     }
 
     export type MGetReturn = MGetResponse<MGetItem>;
@@ -1269,18 +1312,26 @@ export namespace StateLevel {
         state: StateCode;
     }
 
-    // TODO:
+    // state/affordability_ts_forecast
+    export type AffordabilityTSForecast = AffordabilityTimesSeries;
+    // state/affordability_ts_historical
+    export type AffordabilityTSHistorical = AffordabilityTimesSeries;
 
     // state/hcri
     export type HCRI = GrossYield;
 
+    // state/hpi_ts_forecast
+    export type HPITSForecast = HPITimesSeries;
+    // state/hpi_ts_historical
+    export type HPITSHistorical = HPITimesSeries;
+
     export interface MGetItem {
         state_info: StateInfo;
-        "state/affordability_ts_forecast"?: ComponentData<any>;
-        "state/affordability_ts_historical"?: ComponentData<any>;
+        "state/affordability_ts_forecast"?: ComponentData<AffordabilityTSForecast>;
+        "state/affordability_ts_historical"?: ComponentData<AffordabilityTSHistorical>;
         "state/hcri"?: ComponentData<HCRI>;
-        "state/hpi_ts_forecast"?: ComponentData<any>;
-        "state/hpi_ts_historical"?: ComponentData<any>;
+        "state/hpi_ts_forecast"?: ComponentData<HPITSForecast>;
+        "state/hpi_ts_historical"?: ComponentData<HPITSHistorical>;
     }
 
     export type MGetReturn = MGetResponse<MGetItem>;
