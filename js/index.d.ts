@@ -7,6 +7,7 @@ export interface ComponentData<COMP> {
     api_code: number;
     result: COMP;
 }
+export declare type MGetResponse<LI> = LI[];
 export declare namespace PropertyLevel {
     type Component = "property/census" | "property/details" | "property/details_enhanced" | "property/flood" | "property/listing_status" | "property/ltv_details" | "property/ltv_origination" | "property/mortgage_lien" | "property/mortgage_lien_all" | "property/nod" | "property/on_market" | "property/owner_occupied" | "property/rental_listing_status" | "property/rental_on_market" | "property/rental_value" | "property/rental_value_within_block" | "property/rental_yield" | "property/sales_history" | "property/school" | "property/value" | "property/value_by_quality" | "property/value_details_adjusted" | "property/value_forecast" | "property/value_hpi_adjusted" | "property/value_within_block";
     interface RequestItem {
@@ -412,22 +413,73 @@ export declare namespace PropertyLevel {
         "property/value_hpi_adjusted"?: ComponentData<ValueHPIAdjusted>;
         "property/value_within_block"?: ComponentData<ValueWithinBlock>;
     }
-    type MGetReturn = MGetItem[];
+    type MGetReturn = MGetResponse<MGetItem>;
 }
 export declare namespace BlockLevel {
+    type Component = "block/crime" | "block/hazard_earthquake" | "block/hazard_hail" | "block/hazard_hurricane" | "block/hazard_tornado" | "block/hazard_wind" | "block/hcri" | "block/rental_value_distribution" | "block//superfund" | "block/value_distribution" | "block/value_ts_forecast" | "block/value_ts_historical";
     interface RequestItem {
         block_id?: string;
     }
+    interface BlokInfo {
+        block_id: string;
+    }
+    interface MGetItem {
+        block_info: BlokInfo;
+        "block/crime"?: ComponentData<any>;
+        "block/hazard_earthquake"?: ComponentData<any>;
+        "block/hazard_hail"?: ComponentData<any>;
+        "block/hazard_hurricane"?: ComponentData<any>;
+        "block/hazard_tornado"?: ComponentData<any>;
+        "block/hazard_wind"?: ComponentData<any>;
+        "block/hcri"?: ComponentData<any>;
+        "block/rental_value_distribution"?: ComponentData<any>;
+        "block//superfund"?: ComponentData<any>;
+        "block/value_distribution"?: ComponentData<any>;
+        "block/value_ts_forecast"?: ComponentData<any>;
+        "block/value_ts_historical"?: ComponentData<any>;
+    }
+    type MGetReturn = MGetResponse<MGetItem>;
 }
 export declare namespace BlockGroupLevel {
+    type Component = "blockgroup/hcri" | "blockgroup/rental_value_distribution" | "blockgroup/value_distribution" | "blockgroup/value_ts_forecast" | "blockgroup/value_ts_historical";
     interface RequestItem {
         blockgroup_id?: string;
     }
+    interface BlokGroupInfo {
+        blockgroup_id: string;
+    }
+    interface MGetItem {
+        blockgroup_info: BlokGroupInfo;
+        "blockgroup/hcri"?: ComponentData<any>;
+        "blockgroup/rental_value_distribution"?: ComponentData<any>;
+        "blockgroup/value_distribution"?: ComponentData<any>;
+        "blockgroup/value_ts_forecast"?: ComponentData<any>;
+        "blockgroup/value_ts_historical"?: ComponentData<any>;
+    }
+    type MGetReturn = MGetResponse<MGetItem>;
 }
 export declare namespace ZipLevel {
+    type Component = "zip/affordability_ts_forecast" | "zip/affordability_ts_historical" | "zip/details" | "zip/hcri" | "zip/hpi_forecast" | "zip/hpi_historical" | "zip/hpi_ts_forecast" | "zip/hpi_ts_historical" | "zip/market_grade" | "zip/volatility";
     interface RequestItem {
         zipcode?: string;
     }
+    interface ZipcodeInfo {
+        zipcode: string;
+    }
+    interface MGetItem {
+        zipcode_info: ZipcodeInfo;
+        "zip/affordability_ts_forecast"?: ComponentData<any>;
+        "zip/affordability_ts_historical"?: ComponentData<any>;
+        "zip/details"?: ComponentData<any>;
+        "zip/hcri"?: ComponentData<any>;
+        "zip/hpi_forecast"?: ComponentData<any>;
+        "zip/hpi_historical"?: ComponentData<any>;
+        "zip/hpi_ts_forecast"?: ComponentData<any>;
+        "zip/hpi_ts_historical"?: ComponentData<any>;
+        "zip/market_grade"?: ComponentData<any>;
+        "zip/volatility"?: ComponentData<any>;
+    }
+    type MGetReturn = MGetResponse<MGetItem>;
 }
 export declare namespace MetroDivLevel {
     interface RequestItem {

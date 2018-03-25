@@ -91,6 +91,8 @@ export interface ComponentData<COMP> {
     result: COMP;
 }
 
+export type MGetResponse<LI> = LI[];
+
 // property level
 export namespace PropertyLevel {
     export type Component
@@ -911,31 +913,129 @@ export namespace PropertyLevel {
         "property/value_within_block"?: ComponentData<ValueWithinBlock>;
     }
 
-    export type MGetReturn = MGetItem[]; 
+    export type MGetReturn = MGetResponse<MGetItem>;
 }
 
 // block level
 export namespace BlockLevel {
+    export type Component
+    = "block/crime"
+    | "block/hazard_earthquake"
+    | "block/hazard_hail"
+    | "block/hazard_hurricane"
+    | "block/hazard_tornado"
+    | "block/hazard_wind"
+    | "block/hcri"
+    | "block/rental_value_distribution"
+    | "block//superfund"
+    | "block/value_distribution"
+    | "block/value_ts_forecast"
+    | "block/value_ts_historical"
+    ;
+
     export interface RequestItem {
         block_id?: string;
     }
+
+    export interface BlokInfo {
+        block_id: string;
+    }
+
+
     // TODO:
+
+    export interface MGetItem {
+        block_info: BlokInfo;
+        "block/crime"?: ComponentData<any>;
+        "block/hazard_earthquake"?: ComponentData<any>;
+        "block/hazard_hail"?: ComponentData<any>;
+        "block/hazard_hurricane"?: ComponentData<any>;
+        "block/hazard_tornado"?: ComponentData<any>;
+        "block/hazard_wind"?: ComponentData<any>;
+        "block/hcri"?: ComponentData<any>;
+        "block/rental_value_distribution"?: ComponentData<any>;
+        "block//superfund"?: ComponentData<any>;
+        "block/value_distribution"?: ComponentData<any>;
+        "block/value_ts_forecast"?: ComponentData<any>;
+        "block/value_ts_historical"?: ComponentData<any>;
+    }
+
+    export type MGetReturn = MGetResponse<MGetItem>;
 }
 
 // blockgroup level
 export namespace BlockGroupLevel {
+    export type Component
+    = "blockgroup/hcri"
+    | "blockgroup/rental_value_distribution"
+    | "blockgroup/value_distribution"
+    | "blockgroup/value_ts_forecast"
+    | "blockgroup/value_ts_historical"
+    ;
+
     export interface RequestItem {
         blockgroup_id?: string;
     }
+
+    export interface BlokGroupInfo {
+        blockgroup_id: string;
+    }
+
     // TODO:
+
+    export interface MGetItem {
+        blockgroup_info: BlokGroupInfo;
+        "blockgroup/hcri"?: ComponentData<any>;
+        "blockgroup/rental_value_distribution"?: ComponentData<any>;
+        "blockgroup/value_distribution"?: ComponentData<any>;
+        "blockgroup/value_ts_forecast"?: ComponentData<any>;
+        "blockgroup/value_ts_historical"?: ComponentData<any>;
+    }
+
+    export type MGetReturn = MGetResponse<MGetItem>;
+
 }
 
 // zip level
 export namespace ZipLevel {
+    export type Component
+    = "zip/affordability_ts_forecast"
+    | "zip/affordability_ts_historical"
+    | "zip/details"
+    | "zip/hcri"
+    | "zip/hpi_forecast"
+    | "zip/hpi_historical"
+    | "zip/hpi_ts_forecast"
+    | "zip/hpi_ts_historical"
+    | "zip/market_grade"
+    | "zip/volatility"
+    ;
+
     export interface RequestItem {
         zipcode?: string;
     }
+
+    export interface ZipcodeInfo {
+        zipcode: string;
+    }
+
     // TODO:
+
+    export interface MGetItem {
+        zipcode_info: ZipcodeInfo;
+        "zip/affordability_ts_forecast"?: ComponentData<any>;
+        "zip/affordability_ts_historical"?: ComponentData<any>;
+        "zip/details"?: ComponentData<any>;
+        "zip/hcri"?: ComponentData<any>;
+        "zip/hpi_forecast"?: ComponentData<any>;
+        "zip/hpi_historical"?: ComponentData<any>;
+        "zip/hpi_ts_forecast"?: ComponentData<any>;
+        "zip/hpi_ts_historical"?: ComponentData<any>;
+        "zip/market_grade"?: ComponentData<any>;
+        "zip/volatility"?: ComponentData<any>;
+    }
+
+    export type MGetReturn = MGetResponse<MGetItem>;
 }
 
 // metrodiv level
