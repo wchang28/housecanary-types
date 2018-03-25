@@ -1055,7 +1055,7 @@ export namespace MetroDivLevel {
         metrodiv: string;
         metrodiv_name: string;
         msa: string;
-        msa_name: string;        
+        msa_name: string;
     }
 
     // TODO:
@@ -1073,10 +1073,37 @@ export namespace MetroDivLevel {
 
 // msa level
 export namespace MSALevel {
+    export type Component
+    = "msa/affordability_ts_forecast"
+    | "msa/affordability_ts_historical"
+    | "msa/details"
+    | "msa/hcri"
+    | "msa/hpi_ts_forecast"
+    | "msa/hpi_ts_historical"
+    ;
+
     export interface RequestItem {
         msa?: string;
     }
+
+    export interface MSAInfo {
+        msa: string;
+        msa_name: string;        
+    }
+
     // TODO:
+
+    export interface MGetItem {
+        msa_info: MSAInfo;
+        "msa/affordability_ts_forecast"?: ComponentData<any>;
+        "msa/affordability_ts_historical"?: ComponentData<any>;
+        "msa/details"?: ComponentData<any>;
+        "msa/hcri"?: ComponentData<any>;
+        "msa/hpi_ts_forecast"?: ComponentData<any>;
+        "msa/hpi_ts_historical"?: ComponentData<any>;
+    }
+
+    export type MGetReturn = MGetResponse<MGetItem>;
 }
 
 // state level

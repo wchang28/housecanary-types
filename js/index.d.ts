@@ -502,9 +502,24 @@ export declare namespace MetroDivLevel {
     type MGetReturn = MGetResponse<MGetItem>;
 }
 export declare namespace MSALevel {
+    type Component = "msa/affordability_ts_forecast" | "msa/affordability_ts_historical" | "msa/details" | "msa/hcri" | "msa/hpi_ts_forecast" | "msa/hpi_ts_historical";
     interface RequestItem {
         msa?: string;
     }
+    interface MSAInfo {
+        msa: string;
+        msa_name: string;
+    }
+    interface MGetItem {
+        msa_info: MSAInfo;
+        "msa/affordability_ts_forecast"?: ComponentData<any>;
+        "msa/affordability_ts_historical"?: ComponentData<any>;
+        "msa/details"?: ComponentData<any>;
+        "msa/hcri"?: ComponentData<any>;
+        "msa/hpi_ts_forecast"?: ComponentData<any>;
+        "msa/hpi_ts_historical"?: ComponentData<any>;
+    }
+    type MGetReturn = MGetResponse<MGetItem>;
 }
 export declare namespace StateLevel {
     interface RequestItem {
