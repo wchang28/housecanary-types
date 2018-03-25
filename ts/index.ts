@@ -1183,7 +1183,7 @@ export namespace ZipLevel {
         days_on_market_median?: number;
     }
 
-    export interface DetailsHistorical {
+    export interface HistoricalMetrics {
         cagr_1_year?: number;
         cagr_5_years?: number;
         cagr_10_years?: number;
@@ -1199,13 +1199,28 @@ export namespace ZipLevel {
     export interface Details {
         single_family?: DetailsMarketMetrics;
         multi_family?: DetailsMarketMetrics;
-        historical?: DetailsHistorical;
+        historical?: HistoricalMetrics;
     }
 
     // zip/hcri
     export type HCRI = GrossYield;
 
-    // TODO:
+    // zip/hpi_forecast
+    export interface HPIForecast {
+        cagr_12mo_f?: number;
+        cagr_24mo_f?: number;
+        cagr_36mo_f?: number;
+
+        returns_12mo_f?: number;
+        returns_24mo_f?: number;
+        returns_36mo_f?: number;
+
+        max_12mo_loss?: number;
+        risk_12mo_loss?: number;
+    }
+
+    // zip/hpi_historical
+    export type HPIHistorical = HistoricalMetrics;
 
     // zip/hpi_ts_forecast
     export type HPITSForecast = HPITimesSeries;
@@ -1220,8 +1235,8 @@ export namespace ZipLevel {
         "zip/affordability_ts_historical"?: ComponentData<AffordabilityTSHistorical>;
         "zip/details"?: ComponentData<Details>;
         "zip/hcri"?: ComponentData<HCRI>;
-        "zip/hpi_forecast"?: ComponentData<any>;
-        "zip/hpi_historical"?: ComponentData<any>;
+        "zip/hpi_forecast"?: ComponentData<HPIForecast>;
+        "zip/hpi_historical"?: ComponentData<HPIHistorical>;
         "zip/hpi_ts_forecast"?: ComponentData<HPITSForecast>;
         "zip/hpi_ts_historical"?: ComponentData<HPITSHistorical>;
         "zip/market_grade"?: ComponentData<any>;

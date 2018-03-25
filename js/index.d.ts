@@ -584,7 +584,7 @@ export declare namespace ZipLevel {
         months_of_inventory_median?: number;
         days_on_market_median?: number;
     }
-    interface DetailsHistorical {
+    interface HistoricalMetrics {
         cagr_1_year?: number;
         cagr_5_years?: number;
         cagr_10_years?: number;
@@ -597,9 +597,20 @@ export declare namespace ZipLevel {
     interface Details {
         single_family?: DetailsMarketMetrics;
         multi_family?: DetailsMarketMetrics;
-        historical?: DetailsHistorical;
+        historical?: HistoricalMetrics;
     }
     type HCRI = GrossYield;
+    interface HPIForecast {
+        cagr_12mo_f?: number;
+        cagr_24mo_f?: number;
+        cagr_36mo_f?: number;
+        returns_12mo_f?: number;
+        returns_24mo_f?: number;
+        returns_36mo_f?: number;
+        max_12mo_loss?: number;
+        risk_12mo_loss?: number;
+    }
+    type HPIHistorical = HistoricalMetrics;
     type HPITSForecast = HPITimesSeries;
     type HPITSHistorical = HPITimesSeries;
     interface MGetItem {
@@ -608,8 +619,8 @@ export declare namespace ZipLevel {
         "zip/affordability_ts_historical"?: ComponentData<AffordabilityTSHistorical>;
         "zip/details"?: ComponentData<Details>;
         "zip/hcri"?: ComponentData<HCRI>;
-        "zip/hpi_forecast"?: ComponentData<any>;
-        "zip/hpi_historical"?: ComponentData<any>;
+        "zip/hpi_forecast"?: ComponentData<HPIForecast>;
+        "zip/hpi_historical"?: ComponentData<HPIHistorical>;
         "zip/hpi_ts_forecast"?: ComponentData<HPITSForecast>;
         "zip/hpi_ts_historical"?: ComponentData<HPITSHistorical>;
         "zip/market_grade"?: ComponentData<any>;
