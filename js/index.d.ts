@@ -45,6 +45,14 @@ export interface PropertyValueTimeSeries {
     property_type?: PropertyTypeCode;
     time_series?: PropertyValueTimesSeriesItem[];
 }
+export interface AffordabilityTimesSeriesItem {
+    month?: string;
+    afford_pmt?: number;
+    afford_detrended?: number;
+}
+export interface AffordabilityTimesSeries {
+    time_series?: AffordabilityTimesSeriesItem[];
+}
 export interface ComponentData<COMP> {
     api_code_description: string;
     api_code: number;

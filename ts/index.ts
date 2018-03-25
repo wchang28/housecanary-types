@@ -135,6 +135,16 @@ export interface PropertyValueTimeSeries {
     time_series?: PropertyValueTimesSeriesItem[];
 }
 
+export interface AffordabilityTimesSeriesItem {
+    month?: string; // yyyy-mm-01
+    afford_pmt?: number;
+    afford_detrended?: number;
+}
+
+export interface AffordabilityTimesSeries {
+    time_series?: AffordabilityTimesSeriesItem[];
+}
+
 export interface ComponentData<COMP> {
     api_code_description: string;
     api_code: number;  
@@ -1123,7 +1133,6 @@ export namespace BlockGroupLevel {
     }
 
     export type MGetReturn = MGetResponse<MGetItem>;
-
 }
 
 // zip level
