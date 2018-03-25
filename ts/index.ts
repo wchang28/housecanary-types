@@ -941,7 +941,6 @@ export namespace BlockLevel {
         block_id: string;
     }
 
-
     // TODO:
 
     export interface MGetItem {
@@ -1088,7 +1087,7 @@ export namespace MSALevel {
 
     export interface MSAInfo {
         msa: string;
-        msa_name: string;        
+        msa_name: string;
     }
 
     // TODO:
@@ -1108,8 +1107,32 @@ export namespace MSALevel {
 
 // state level
 export namespace StateLevel {
+    export type Component
+    = "state/affordability_ts_forecast"
+    | "state/affordability_ts_historical"
+    | "state/hcri"
+    | "state/hpi_ts_forecast"
+    | "state/hpi_ts_historical"
+    ;
+
     export interface RequestItem {
         state?: StateCode;
     }
+
+    export interface StateInfo {
+        state: StateCode;
+    }
+
     // TODO:
+
+    export interface MGetItem {
+        state_info: StateInfo;
+        "state/affordability_ts_forecast"?: ComponentData<any>;
+        "state/affordability_ts_historical"?: ComponentData<any>;
+        "state/hcri"?: ComponentData<any>;
+        "state/hpi_ts_forecast"?: ComponentData<any>;
+        "state/hpi_ts_historical"?: ComponentData<any>;
+    }
+
+    export type MGetReturn = MGetResponse<MGetItem>;
 }

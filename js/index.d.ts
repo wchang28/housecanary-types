@@ -522,7 +522,20 @@ export declare namespace MSALevel {
     type MGetReturn = MGetResponse<MGetItem>;
 }
 export declare namespace StateLevel {
+    type Component = "state/affordability_ts_forecast" | "state/affordability_ts_historical" | "state/hcri" | "state/hpi_ts_forecast" | "state/hpi_ts_historical";
     interface RequestItem {
         state?: StateCode;
     }
+    interface StateInfo {
+        state: StateCode;
+    }
+    interface MGetItem {
+        state_info: StateInfo;
+        "state/affordability_ts_forecast"?: ComponentData<any>;
+        "state/affordability_ts_historical"?: ComponentData<any>;
+        "state/hcri"?: ComponentData<any>;
+        "state/hpi_ts_forecast"?: ComponentData<any>;
+        "state/hpi_ts_historical"?: ComponentData<any>;
+    }
+    type MGetReturn = MGetResponse<MGetItem>;
 }
