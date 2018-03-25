@@ -546,8 +546,8 @@ export namespace PropertyLevel {
         sewer?: SewerType;
         site_area_acres?: number;
         style?: PropertyStyle;
-        total_bath_count?: number;
-        total_number_of_rooms?: number; // can be float
+        total_bath_count?: number;  // can be float
+        total_number_of_rooms?: number;
         subdivision?: string;   // Subdivision as reported to the assessor
         water?: WaterConnectionType;
         year_built?: number;
