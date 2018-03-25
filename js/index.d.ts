@@ -2,6 +2,40 @@ export declare type StateCode = ('AK' | 'AL' | 'AR' | 'AZ' | 'CA' | 'CO' | 'CT' 
 export declare type YesOrNo = ("yes" | "no");
 export declare type PropertyTypeCode = "SFD" | "TH" | "CND" | "INC" | "MFH";
 export declare type FloodZoneCode = "A" | "A1" | "A10" | "A11" | "A12" | "A13" | "A14" | "A15" | "A16" | "A17" | "A18" | "A19" | "A2" | "A20" | "A21" | "A22" | "A23" | "A24" | "A25" | "A26" | "A27" | "A28" | "A29" | "A3" | "A30" | "A4" | "A5" | "A6" | "A7" | "A8" | "A9" | "A99" | "AE" | "AH" | "AO" | "AR" | "B" | "C" | "D" | "V" | "V1" | "V10" | "V11" | "V12" | "V13" | "V14" | "V15" | "V16" | "V17" | "V18" | "V19" | "V2" | "V20" | "V21" | "V22" | "V23" | "V24" | "V25" | "V26" | "V27" | "V28" | "V29" | "V3" | "V30" | "V4" | "V5" | "V6" | "V7" | "V8" | "V9" | "VE" | "X";
+export interface GrossYield {
+    gross_yield_count?: number;
+    gross_yield_average?: number;
+    gross_yield_median?: number;
+}
+export interface PropertyGrossYield extends GrossYield {
+    property_type?: PropertyTypeCode;
+    gross_yield_count?: number;
+    gross_yield_average?: number;
+    gross_yield_median?: number;
+}
+export interface RentalValueDistrib {
+    property_type?: PropertyTypeCode;
+    value_5?: number;
+    value_25?: number;
+    value_50?: number;
+    value_75?: number;
+    value_95?: number;
+    value_min?: number;
+    value_max?: number;
+    value_mean?: number;
+    value_sd?: number;
+    value_count?: number;
+    value_sqft_5?: number;
+    value_sqft_25?: number;
+    value_sqft_50?: number;
+    value_sqft_75?: number;
+    value_sqft_95?: number;
+    value_sqft_min?: number;
+    value_sqft_max?: number;
+    value_sqft_mean?: number;
+    value_sqft_sd?: number;
+    value_sqft_count?: number;
+}
 export interface ComponentData<COMP> {
     api_code_description: string;
     api_code: number;
@@ -416,24 +450,49 @@ export declare namespace PropertyLevel {
     type MGetReturn = MGetResponse<MGetItem>;
 }
 export declare namespace BlockLevel {
-    type Component = "block/crime" | "block/hazard_earthquake" | "block/hazard_hail" | "block/hazard_hurricane" | "block/hazard_tornado" | "block/hazard_wind" | "block/hcri" | "block/rental_value_distribution" | "block//superfund" | "block/value_distribution" | "block/value_ts_forecast" | "block/value_ts_historical";
+    type Component = "block/crime" | "block/hazard_earthquake" | "block/hazard_hail" | "block/hazard_hurricane" | "block/hazard_tornado" | "block/hazard_wind" | "block/hcri" | "block/rental_value_distribution" | "block/superfund" | "block/value_distribution" | "block/value_ts_forecast" | "block/value_ts_historical";
     interface RequestItem {
         block_id?: string;
     }
     interface BlokInfo {
         block_id: string;
     }
+    interface GeoPercentile {
+        nation_percentile?: number;
+        county_percentile?: number;
+    }
+    interface CrimeStat extends GeoPercentile {
+        incidents?: number;
+    }
+    interface Crime {
+        all?: CrimeStat;
+        property?: CrimeStat;
+        violent?: CrimeStat;
+        other?: CrimeStat;
+    }
+    interface HazardEarthquake extends GeoPercentile {
+        max_percent_g?: number;
+    }
+    interface HazardWeatherRelated extends GeoPercentile {
+        accumulated_energy?: number;
+    }
+    type HazardHail = HazardWeatherRelated;
+    type HazardHurricane = HazardWeatherRelated;
+    type HazardTornado = HazardWeatherRelated;
+    type HazardWind = HazardWeatherRelated;
+    type HCRI = PropertyGrossYield;
+    type RentalValueDistribution = RentalValueDistrib;
     interface MGetItem {
         block_info: BlokInfo;
-        "block/crime"?: ComponentData<any>;
-        "block/hazard_earthquake"?: ComponentData<any>;
-        "block/hazard_hail"?: ComponentData<any>;
-        "block/hazard_hurricane"?: ComponentData<any>;
-        "block/hazard_tornado"?: ComponentData<any>;
-        "block/hazard_wind"?: ComponentData<any>;
-        "block/hcri"?: ComponentData<any>;
-        "block/rental_value_distribution"?: ComponentData<any>;
-        "block//superfund"?: ComponentData<any>;
+        "block/crime"?: ComponentData<Crime>;
+        "block/hazard_earthquake"?: ComponentData<HazardEarthquake>;
+        "block/hazard_hail"?: ComponentData<HazardHail>;
+        "block/hazard_hurricane"?: ComponentData<HazardHurricane>;
+        "block/hazard_tornado"?: ComponentData<HazardTornado>;
+        "block/hazard_wind"?: ComponentData<HazardWind>;
+        "block/hcri"?: ComponentData<HCRI>;
+        "block/rental_value_distribution"?: ComponentData<RentalValueDistribution>;
+        "block/superfund"?: ComponentData<any>;
         "block/value_distribution"?: ComponentData<any>;
         "block/value_ts_forecast"?: ComponentData<any>;
         "block/value_ts_historical"?: ComponentData<any>;
@@ -448,10 +507,12 @@ export declare namespace BlockGroupLevel {
     interface BlokGroupInfo {
         blockgroup_id: string;
     }
+    type HCRI = PropertyGrossYield;
+    type RentalValueDistribution = RentalValueDistrib;
     interface MGetItem {
         blockgroup_info: BlokGroupInfo;
-        "blockgroup/hcri"?: ComponentData<any>;
-        "blockgroup/rental_value_distribution"?: ComponentData<any>;
+        "blockgroup/hcri"?: ComponentData<HCRI>;
+        "blockgroup/rental_value_distribution"?: ComponentData<RentalValueDistribution>;
         "blockgroup/value_distribution"?: ComponentData<any>;
         "blockgroup/value_ts_forecast"?: ComponentData<any>;
         "blockgroup/value_ts_historical"?: ComponentData<any>;
@@ -466,12 +527,13 @@ export declare namespace ZipLevel {
     interface ZipcodeInfo {
         zipcode: string;
     }
+    type HCRI = GrossYield;
     interface MGetItem {
         zipcode_info: ZipcodeInfo;
         "zip/affordability_ts_forecast"?: ComponentData<any>;
         "zip/affordability_ts_historical"?: ComponentData<any>;
         "zip/details"?: ComponentData<any>;
-        "zip/hcri"?: ComponentData<any>;
+        "zip/hcri"?: ComponentData<HCRI>;
         "zip/hpi_forecast"?: ComponentData<any>;
         "zip/hpi_historical"?: ComponentData<any>;
         "zip/hpi_ts_forecast"?: ComponentData<any>;
@@ -510,12 +572,13 @@ export declare namespace MSALevel {
         msa: string;
         msa_name: string;
     }
+    type HCRI = GrossYield;
     interface MGetItem {
         msa_info: MSAInfo;
         "msa/affordability_ts_forecast"?: ComponentData<any>;
         "msa/affordability_ts_historical"?: ComponentData<any>;
         "msa/details"?: ComponentData<any>;
-        "msa/hcri"?: ComponentData<any>;
+        "msa/hcri"?: ComponentData<HCRI>;
         "msa/hpi_ts_forecast"?: ComponentData<any>;
         "msa/hpi_ts_historical"?: ComponentData<any>;
     }
@@ -529,11 +592,12 @@ export declare namespace StateLevel {
     interface StateInfo {
         state: StateCode;
     }
+    type HCRI = GrossYield;
     interface MGetItem {
         state_info: StateInfo;
         "state/affordability_ts_forecast"?: ComponentData<any>;
         "state/affordability_ts_historical"?: ComponentData<any>;
-        "state/hcri"?: ComponentData<any>;
+        "state/hcri"?: ComponentData<HCRI>;
         "state/hpi_ts_forecast"?: ComponentData<any>;
         "state/hpi_ts_historical"?: ComponentData<any>;
     }

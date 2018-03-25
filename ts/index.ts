@@ -85,6 +85,45 @@ export type FloodZoneCode
 | "X"
 ;
 
+export interface GrossYield {
+    gross_yield_count?: number;
+    gross_yield_average?: number;
+    gross_yield_median?: number;
+}
+
+export interface PropertyGrossYield extends GrossYield  {
+    property_type?: PropertyTypeCode;
+    gross_yield_count?: number;
+    gross_yield_average?: number;
+    gross_yield_median?: number;
+}
+
+export interface RentalValueDistrib {
+    property_type?: PropertyTypeCode;
+
+    value_5?: number;
+    value_25?: number;
+    value_50?: number;
+    value_75?: number;
+    value_95?: number;
+    value_min?: number;
+    value_max?: number;
+    value_mean?: number;
+    value_sd?: number;
+    value_count?: number;
+
+    value_sqft_5?: number;
+    value_sqft_25?: number;
+    value_sqft_50?: number;
+    value_sqft_75?: number;
+    value_sqft_95?: number;
+    value_sqft_min?: number;
+    value_sqft_max?: number;
+    value_sqft_mean?: number;
+    value_sqft_sd?: number;
+    value_sqft_count?: number;
+}
+
 export interface ComponentData<COMP> {
     api_code_description: string;
     api_code: number;  
@@ -927,7 +966,7 @@ export namespace BlockLevel {
     | "block/hazard_wind"
     | "block/hcri"
     | "block/rental_value_distribution"
-    | "block//superfund"
+    | "block/superfund"
     | "block/value_distribution"
     | "block/value_ts_forecast"
     | "block/value_ts_historical"
@@ -941,19 +980,61 @@ export namespace BlockLevel {
         block_id: string;
     }
 
+    export interface GeoPercentile {
+        nation_percentile?: number;
+        county_percentile?: number;
+    }
+
+    export interface CrimeStat extends GeoPercentile {
+        incidents?: number;
+    }
+
+    // block/crime
+    export interface Crime {
+        all?: CrimeStat;
+        property?: CrimeStat;
+        violent?: CrimeStat;
+        other?: CrimeStat;
+    }
+
+    // block/hazard_earthquake
+    export interface HazardEarthquake extends GeoPercentile {
+        max_percent_g?: number;
+    }
+
+    export interface HazardWeatherRelated extends GeoPercentile {
+        accumulated_energy?: number;
+    }
+
+    // block/hazard_hail
+    export type HazardHail = HazardWeatherRelated;
+    // block/hazard_hurricane
+    export type HazardHurricane = HazardWeatherRelated;
+    // block/hazard_tornado
+    export type HazardTornado = HazardWeatherRelated;
+    // block/hazard_wind
+    export type HazardWind = HazardWeatherRelated;
+
+    // block/hcri
+    export type HCRI = PropertyGrossYield;
+
+    // block/rental_value_distribution
+    export type RentalValueDistribution = RentalValueDistrib;
+
+
     // TODO:
 
     export interface MGetItem {
         block_info: BlokInfo;
-        "block/crime"?: ComponentData<any>;
-        "block/hazard_earthquake"?: ComponentData<any>;
-        "block/hazard_hail"?: ComponentData<any>;
-        "block/hazard_hurricane"?: ComponentData<any>;
-        "block/hazard_tornado"?: ComponentData<any>;
-        "block/hazard_wind"?: ComponentData<any>;
-        "block/hcri"?: ComponentData<any>;
-        "block/rental_value_distribution"?: ComponentData<any>;
-        "block//superfund"?: ComponentData<any>;
+        "block/crime"?: ComponentData<Crime>;
+        "block/hazard_earthquake"?: ComponentData<HazardEarthquake>;
+        "block/hazard_hail"?: ComponentData<HazardHail>;
+        "block/hazard_hurricane"?: ComponentData<HazardHurricane>;
+        "block/hazard_tornado"?: ComponentData<HazardTornado>;
+        "block/hazard_wind"?: ComponentData<HazardWind>;
+        "block/hcri"?: ComponentData<HCRI>;
+        "block/rental_value_distribution"?: ComponentData<RentalValueDistribution>;
+        "block/superfund"?: ComponentData<any>;
         "block/value_distribution"?: ComponentData<any>;
         "block/value_ts_forecast"?: ComponentData<any>;
         "block/value_ts_historical"?: ComponentData<any>;
@@ -980,12 +1061,19 @@ export namespace BlockGroupLevel {
         blockgroup_id: string;
     }
 
+    // blockgroup/hcri
+    export type HCRI = PropertyGrossYield;
+
+    // blockgroup/rental_value_distribution
+    export type RentalValueDistribution = RentalValueDistrib;
+
     // TODO:
+
 
     export interface MGetItem {
         blockgroup_info: BlokGroupInfo;
-        "blockgroup/hcri"?: ComponentData<any>;
-        "blockgroup/rental_value_distribution"?: ComponentData<any>;
+        "blockgroup/hcri"?: ComponentData<HCRI>;
+        "blockgroup/rental_value_distribution"?: ComponentData<RentalValueDistribution>;
         "blockgroup/value_distribution"?: ComponentData<any>;
         "blockgroup/value_ts_forecast"?: ComponentData<any>;
         "blockgroup/value_ts_historical"?: ComponentData<any>;
@@ -1020,12 +1108,15 @@ export namespace ZipLevel {
 
     // TODO:
 
+    // zip/hcri
+    export type HCRI = GrossYield;
+
     export interface MGetItem {
         zipcode_info: ZipcodeInfo;
         "zip/affordability_ts_forecast"?: ComponentData<any>;
         "zip/affordability_ts_historical"?: ComponentData<any>;
         "zip/details"?: ComponentData<any>;
-        "zip/hcri"?: ComponentData<any>;
+        "zip/hcri"?: ComponentData<HCRI>;
         "zip/hpi_forecast"?: ComponentData<any>;
         "zip/hpi_historical"?: ComponentData<any>;
         "zip/hpi_ts_forecast"?: ComponentData<any>;
@@ -1092,12 +1183,15 @@ export namespace MSALevel {
 
     // TODO:
 
+    // msa/hcri
+    export type HCRI = GrossYield;
+
     export interface MGetItem {
         msa_info: MSAInfo;
         "msa/affordability_ts_forecast"?: ComponentData<any>;
         "msa/affordability_ts_historical"?: ComponentData<any>;
         "msa/details"?: ComponentData<any>;
-        "msa/hcri"?: ComponentData<any>;
+        "msa/hcri"?: ComponentData<HCRI>;
         "msa/hpi_ts_forecast"?: ComponentData<any>;
         "msa/hpi_ts_historical"?: ComponentData<any>;
     }
@@ -1125,11 +1219,14 @@ export namespace StateLevel {
 
     // TODO:
 
+    // state/hcri
+    export type HCRI = GrossYield;
+
     export interface MGetItem {
         state_info: StateInfo;
         "state/affordability_ts_forecast"?: ComponentData<any>;
         "state/affordability_ts_historical"?: ComponentData<any>;
-        "state/hcri"?: ComponentData<any>;
+        "state/hcri"?: ComponentData<HCRI>;
         "state/hpi_ts_forecast"?: ComponentData<any>;
         "state/hpi_ts_historical"?: ComponentData<any>;
     }
