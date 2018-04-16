@@ -478,6 +478,7 @@ export declare namespace BlockLevel {
     type Component = "block/crime" | "block/hazard_earthquake" | "block/hazard_hail" | "block/hazard_hurricane" | "block/hazard_tornado" | "block/hazard_wind" | "block/hcri" | "block/rental_value_distribution" | "block/superfund" | "block/value_distribution" | "block/value_ts_forecast" | "block/value_ts_historical";
     interface RequestItem {
         block_id?: string;
+        components?: string;
     }
     interface BlokInfo {
         block_id: string;
@@ -547,6 +548,7 @@ export declare namespace BlockGroupLevel {
     type Component = "blockgroup/hcri" | "blockgroup/rental_value_distribution" | "blockgroup/value_distribution" | "blockgroup/value_ts_forecast" | "blockgroup/value_ts_historical";
     interface RequestItem {
         blockgroup_id?: string;
+        components?: string;
     }
     interface BlokGroupInfo {
         blockgroup_id: string;
@@ -570,6 +572,7 @@ export declare namespace ZipLevel {
     type Component = "zip/affordability_ts_forecast" | "zip/affordability_ts_historical" | "zip/details" | "zip/hcri" | "zip/hpi_forecast" | "zip/hpi_historical" | "zip/hpi_ts_forecast" | "zip/hpi_ts_historical" | "zip/market_grade" | "zip/volatility";
     interface RequestItem {
         zipcode?: string;
+        components?: string;
     }
     interface ZipcodeInfo {
         zipcode: string;
@@ -641,6 +644,7 @@ export declare namespace MetroDivLevel {
     type Component = "metrodiv/affordability_ts_forecast" | "metrodiv/affordability_ts_historical" | "metrodiv/hpi_ts_forecast" | "metrodiv/hpi_ts_historical";
     interface RequestItem {
         metrodiv?: string;
+        components?: string;
     }
     interface MetroDivInfo {
         metrodiv: string;
@@ -665,6 +669,7 @@ export declare namespace MSALevel {
     type Component = "msa/affordability_ts_forecast" | "msa/affordability_ts_historical" | "msa/details" | "msa/hcri" | "msa/hpi_ts_forecast" | "msa/hpi_ts_historical";
     interface RequestItem {
         msa?: string;
+        components?: string;
     }
     interface MSAInfo {
         msa: string;
@@ -704,6 +709,7 @@ export declare namespace StateLevel {
     type Component = "state/affordability_ts_forecast" | "state/affordability_ts_historical" | "state/hcri" | "state/hpi_ts_forecast" | "state/hpi_ts_historical";
     interface RequestItem {
         state?: StateCode;
+        components?: string;
     }
     interface StateInfo {
         state: StateCode;

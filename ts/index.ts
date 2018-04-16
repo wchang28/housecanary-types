@@ -1006,6 +1006,7 @@ export namespace BlockLevel {
 
     export interface RequestItem {
         block_id?: string;
+        components?: string;
     }
 
     export interface BlokInfo {
@@ -1113,6 +1114,7 @@ export namespace BlockGroupLevel {
 
     export interface RequestItem {
         blockgroup_id?: string;
+        components?: string;
     }
 
     export interface BlokGroupInfo {
@@ -1163,6 +1165,7 @@ export namespace ZipLevel {
 
     export interface RequestItem {
         zipcode?: string;
+        components?: string;
     }
 
     export interface ZipcodeInfo {
@@ -1269,6 +1272,7 @@ export namespace MetroDivLevel {
 
     export interface RequestItem {
         metrodiv?: string;
+        components?: string;
     }
 
     export interface MetroDivInfo {
@@ -1312,6 +1316,7 @@ export namespace MSALevel {
 
     export interface RequestItem {
         msa?: string;
+        components?: string;
     }
 
     export interface MSAInfo {
@@ -1376,6 +1381,7 @@ export namespace StateLevel {
 
     export interface RequestItem {
         state?: StateCode;
+        components?: string;
     }
 
     export interface StateInfo {
