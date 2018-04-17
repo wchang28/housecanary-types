@@ -552,6 +552,37 @@ export namespace PropertyLevel {
     | "high"
     ;
 
+    export interface Address {
+        address_full?: string;  // Full address string
+        address?: string;       // Street address
+        unit?: string;          // Unit within the building, if any
+        city?: string;          // City where property is located
+        state?: StateCode;      // 2-character US state abbreviation
+        zipcode?: string;       // 5-character US zipcode
+        zipcode_plus4?: string; // 4-character zipcode extension
+    }
+
+    export interface GeoLocation {
+        lat?: number;   // Latitude value, in degrees
+        lng?: number;   // Longitude value, in degrees
+    }
+
+    export interface GeoLocationWithPrecision extends GeoLocation {
+        geo_precision?: GeoPrecision;   // a string describing available geo precision
+    }
+
+    export interface PropertyForeignKeys {
+        block_id?: string;      // 15-digit US census block ID
+        blockgroup_id?: string; // 12-digit census block group ID
+        msa?: string;           // 5-digit US census MSA ID
+        metrodiv?: string;      // 5-digit US census Metropolitan Division ID     
+        county_fips?: string;   // 5-digit US census county ID
+    }
+
+    export interface AddressData extends Address, PropertyForeignKeys, GeoLocationWithPrecision {
+        slug?: string;  // HouseCanary address slug. A single URL-safe string identifying the address
+    }
+
     export interface AddressInfoStatus {
         requested_item?: RequestItem;
         errors?: string[];
@@ -560,23 +591,7 @@ export namespace PropertyLevel {
         match?: boolean;
     }
 
-    export interface AddressInfo {
-        address_full?: string;
-        slug?: string;
-        address?: string;
-        unit?: string;
-        city?: string;
-        state?: StateCode;
-        zipcode?: string;
-        zipcode_plus4?: string;
-        block_id?: string
-        blockgroup_id?: string;
-        county_fips?: string;
-        msa?: string;
-        metrodiv?: string;
-        geo_precision?: GeoPrecision;
-        lat?: number;
-        lng?: number;
+    export interface AddressInfo extends AddressData {
         status?: AddressInfoStatus;
     }
 

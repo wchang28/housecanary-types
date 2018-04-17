@@ -102,6 +102,32 @@ export declare namespace PropertyLevel {
     type PropertyType = "Single Family Residential" | "Townhouse" | "Condominium" | "Manufactured/Mobile Home" | "Multi-Family" | "Land" | "Timeshare" | "Commercial" | "Other";
     type LeasePaymentFrequency = "Yearly" | "Semi-Annually" | "Monthly" | "Quarterly" | "Weekly" | "Daily";
     type EducationLevel = "elementary" | "middle" | "high";
+    interface Address {
+        address_full?: string;
+        address?: string;
+        unit?: string;
+        city?: string;
+        state?: StateCode;
+        zipcode?: string;
+        zipcode_plus4?: string;
+    }
+    interface GeoLocation {
+        lat?: number;
+        lng?: number;
+    }
+    interface GeoLocationWithPrecision extends GeoLocation {
+        geo_precision?: GeoPrecision;
+    }
+    interface PropertyForeignKeys {
+        block_id?: string;
+        blockgroup_id?: string;
+        msa?: string;
+        metrodiv?: string;
+        county_fips?: string;
+    }
+    interface AddressData extends Address, PropertyForeignKeys, GeoLocationWithPrecision {
+        slug?: string;
+    }
     interface AddressInfoStatus {
         requested_item?: RequestItem;
         errors?: string[];
@@ -109,23 +135,7 @@ export declare namespace PropertyLevel {
         details?: string[];
         match?: boolean;
     }
-    interface AddressInfo {
-        address_full?: string;
-        slug?: string;
-        address?: string;
-        unit?: string;
-        city?: string;
-        state?: StateCode;
-        zipcode?: string;
-        zipcode_plus4?: string;
-        block_id?: string;
-        blockgroup_id?: string;
-        county_fips?: string;
-        msa?: string;
-        metrodiv?: string;
-        geo_precision?: GeoPrecision;
-        lat?: number;
-        lng?: number;
+    interface AddressInfo extends AddressData {
         status?: AddressInfoStatus;
     }
     interface Census {
