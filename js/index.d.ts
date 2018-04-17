@@ -118,14 +118,14 @@ export declare namespace PropertyLevel {
     interface GeoLocationWithPrecision extends GeoLocation {
         geo_precision?: GeoPrecision;
     }
-    interface PropertyForeignKeys {
+    interface CensusForeignKeys {
         block_id?: string;
         blockgroup_id?: string;
         msa?: string;
         metrodiv?: string;
         county_fips?: string;
     }
-    interface AddressData extends Address, PropertyForeignKeys, GeoLocationWithPrecision {
+    interface AddressData extends Address, CensusForeignKeys, GeoLocationWithPrecision {
         slug?: string;
     }
     interface AddressInfoStatus {

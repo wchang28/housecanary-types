@@ -571,7 +571,7 @@ export namespace PropertyLevel {
         geo_precision?: GeoPrecision;   // a string describing available geo precision
     }
 
-    export interface PropertyForeignKeys {
+    export interface CensusForeignKeys {
         block_id?: string;      // 15-digit US census block ID
         blockgroup_id?: string; // 12-digit census block group ID
         msa?: string;           // 5-digit US census MSA ID
@@ -579,7 +579,7 @@ export namespace PropertyLevel {
         county_fips?: string;   // 5-digit US census county ID
     }
 
-    export interface AddressData extends Address, PropertyForeignKeys, GeoLocationWithPrecision {
+    export interface AddressData extends Address, CensusForeignKeys, GeoLocationWithPrecision {
         slug?: string;  // HouseCanary address slug. A single URL-safe string identifying the address
     }
 
